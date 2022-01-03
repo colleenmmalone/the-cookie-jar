@@ -1,7 +1,53 @@
 import matcha from './pictures/cake_matcha.jpg';
 import choc from './pictures/cake_chocolate.jpg';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function Cart(){
+
+    // retrieve logged in user from backend
+    const [loggedInUser, setLoggedInUser] = useState([]);
+    // initial state of cart should be empty
+    const [cart, setCart] = useState([]);
+
+    // test value === this should be the logged in user that we get from the backend 
+    let testUser = 
+        {
+            "id": 28,
+            "firstName": "Coco",
+            "email": "cs1",
+            "pswd": "cs1",
+            "status": "CUSTOMER"
+        }
+    // next api would be loggedInUser 
+    // retrieve logged in user in form of post request
+    const cartAPI = ("http://localhost:8081/ordercontents");
+
+    useEffect(function effectFunction() {
+        axios.get(cartAPI)
+            .then(response => response) 
+            .then(({data: cart}) => {
+                setCart(cart)
+            });
+    }, []);
+
+    
+    let cartItems = cart.map(function(el) {
+        console.log(testUser.id === el.orderID)
+        if (testUser.id === el.ordercontentsid) {
+            return (
+                <tr key={el.ordercontentsid}>
+                <td>{el.item}</td>
+                <td><input type="number" value={el.quantity}></input></td>
+                <td>{el.price}</td>
+                </tr>
+            )   
+        }
+        // if (Object.values(testUser.id) != el.id) {
+        //     return (<div>1231232131</div>)
+        // }
+    }) 
+ 
     return(
         <>
         <span id="cart">
@@ -10,9 +56,7 @@ export default function Cart(){
         <table>
             <tr>
                 <td><img src={choc} class="thumb"/></td>
-                <td>Chocolate Cake</td>
-                <td><input type="number" value="4" id="qty1" class="qty"></input></td>
-                <td>$14.00</td>
+                {cartItems}
             </tr>
             <tr>
                 <td><img src={matcha} class="thumb"/></td>

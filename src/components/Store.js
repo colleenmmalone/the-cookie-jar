@@ -55,7 +55,16 @@ export default function Store(){
         <p>hello this is the Store! Please buy lots of cookies</p>
         this is where the inventory should be called and parsed into tables<br/>
         should have image, name, price, add-to-cart button
-        <table className="inventory-table">{inventoryItems}</table>
+        <table className="inventory-table">
+            <tbody>
+                <tr>
+                <th>Name:</th>
+                {inventoryItems}
+                <th>Quantity</th>
+                <th>Price:</th>
+                </tr>
+            </tbody>
+        </table>
         <p>the following upload function works, but we need to find a place to store our files</p>
         <p>maybe a bucket on AWS?</p>
         
