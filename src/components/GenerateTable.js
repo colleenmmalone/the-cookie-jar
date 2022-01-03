@@ -1,10 +1,38 @@
-
-export default function GenerateTable(){
+    //this uploads pics from saved folder
     const pics = importPics(require.context('./pictures', false, /\.(png|jpe?g|svg)$/));
-    var myArr = [{"itemid":"1","items":"Matcha Cake","quantity":"5"},{"itemid":"2","items":"Chocolate Cake","quantity":"4"},{"itemid":"3","items":"Cookie","quantity":"8"},{"itemid":"4","items":"Strawberry Shortcake","quantity":"4"}];
 
-    var table = document.getElementById("mememe");
+    //this will be replaced by Axios call data
+    var myArr = [{"itemid":"1","items":"Matcha Cake","quantity":"5", "storeImg":"cake_matcha.jpg"},{"itemid":"2","items":"Chocolate Cake","quantity":"4", "storeImg":"cake_chocolate.jpg"},{"itemid":"3","items":"Cookie","quantity":"8", "storeImg":"cake_matcha.jpg"},{"itemid":"4","items":"Strawberry Shortcake","quantity":"4", "storeImg":"shopping-cart.png"}];
 
+    function importPics(r){
+        let pics = {};
+         r.keys().forEach((item, index) => { pics[item.replace('./', '')] = r(item); });
+        return pics
+       }
+
+       console.log(myArr[0].storeImg);
+       const Table = () => {
+           return(
+               <table>
+                   {myArr.map(({items, quantity, storeImg}) => {
+                       console.log(storeImg);
+                       return (
+                           <tr>
+                               <td>
+                                   {/*a.setAttribute("src", pics[`cake_matcha.jpg`]);*/}
+                                   <img src={require('./pictures/'+storeImg)} class="thumb"/>
+                                   <p>{items}</p>
+                                   <p>{quantity}</p>
+
+                               </td>
+                           </tr>
+                       )
+                   })}
+               </table>
+           )
+       }
+/* function forLoop(){
+    var table = document.createElement("table");
     for(var i=0 ; i < 4 ; i++){
         console.log(myArr[i]);
         var tr = document.createElement('tr');  
@@ -26,21 +54,15 @@ export default function GenerateTable(){
         tr.appendChild(td);
 
         table.appendChild(tr);
+
+
+   
     }
-    return(
-        <>
-            <h1>hello</h1>;
-            <table id="mememe">
-            </table>
-
-        </>
-        );
-
-}
+} */
 
 
-function importPics(r){
-    let pics = {};
-     r.keys().forEach((item, index) => { pics[item.replace('./', '')] = r(item); });
-    return pics
-   }
+
+
+
+
+export default Table;

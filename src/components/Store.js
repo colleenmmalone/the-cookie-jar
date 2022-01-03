@@ -5,8 +5,10 @@ import UploadAndDisplayImage from "./UploadAndDisplay";
 
 export default function Store(){
     const pics = importPics(require.context('./pictures', false, /\.(png|jpe?g|svg)$/));
-    {/*{generateTable(pics)};
-  <UploadAndDisplayImage/>*/}
+    /*{generateTable(pics)}
+  <UploadAndDisplayImage/>*/
+
+  
 
     return(
         <>
@@ -20,15 +22,14 @@ export default function Store(){
         should have image, name, price, add-to-cart button
         <p>the following upload function works, but we need to find a place to store our files</p>
         <p>maybe a bucket on AWS?</p>
-        <div id="storeDisplay"></div>
-        
-        ReactDOM.render(
-  <React.StrictMode>
-    <GenerateTable />
-  </React.StrictMode>,
-  document.getElementById('storeDisplay')
-);
+        <div id='storeDisplay'>
+            <GenerateTable />
 
+        </div>
+        
+
+
+        
         </>
     )
 }
@@ -38,3 +39,5 @@ function importPics(r){
          r.keys().forEach((item, index) => { pics[item.replace('./', '')] = r(item); });
         return pics
        }
+
+
