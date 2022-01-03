@@ -24,8 +24,82 @@
   color: white;
 }
 
+#storeTitle {
+  background-color: pink;
+  color: rgb(201, 37, 105);
+  font-family: "Hearts-Title";
+  font-size: 70px;
+}
+
+#navBar{
+  background-color: #61dafb;
+  width: 95%;
+  padding: 5px;
+  margin: 5px;
+  line-height: 30px;
+}
+
+#navBar button{
+  background-color: transparent;
+  border: none;
+}
+
+#cartImg{
+  height: 25px;
+}
+
+#main{
+  padding: 20px 0px;
+  background: linear-gradient(white 0%, pink 90%);
+}
+
+#cart{
+  display: inline-block;
+}
+
+#sideBar{
+  background: linear-gradient(pink 0%, rgb(201, 37, 105) 100%);
+ /* Full-height: remove this if you want "auto" height */
+    width: 180px; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    right: 0;
+    padding: 20px 0px;
+    margin: 10px;
+    border-radius: 20px;
+    display: inline-block;
+}
+
+#pay{
+  border: 0px;
+  background-color: #61dafb;
+  padding: 10px;
+  border-radius: 15px;
+  font-size: 20px;
+}
+#totals{
+  text-align: left;
+  padding-left: 30px;
+}
+
+.qty{
+  width: 50px;
+  text-align: center;;
+}
+
+table{
+  text-align: center;
+}
+td{
+  padding: 10px;
+}
+
 .App-link {
   color: #61dafb;
+}
+
+.thumb{
+  width: 150px;
 }
 
 @keyframes App-logo-spin {
@@ -35,4 +109,9 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+@font-face{
+  font-family: "Hearts-Title";
+  src: url(fonts/quirky-love-font/QuirkyLovePersonalUseRegular-RpwrM.ttf);
 }
