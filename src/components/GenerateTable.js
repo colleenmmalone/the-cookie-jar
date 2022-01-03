@@ -2,7 +2,7 @@
     const pics = importPics(require.context('./pictures', false, /\.(png|jpe?g|svg)$/));
 
     //this will be replaced by Axios call data
-    var myArr = [{"itemid":"1","items":"Matcha Cake","quantity":"5", "storeImg":"cake_matcha.jpg"},{"itemid":"2","items":"Chocolate Cake","quantity":"4", "storeImg":"cake_chocolate.jpg"},{"itemid":"3","items":"Cookie","quantity":"8", "storeImg":"cake_matcha.jpg"},{"itemid":"4","items":"Strawberry Shortcake","quantity":"4", "storeImg":"shopping-cart.png"}];
+    var myArr = [{"itemid":"1","items":"Matcha Cake","quantity":"5", "storeImg":"cake_matcha.jpg"},{"itemid":"2","items":"Chocolate Cake","quantity":"4", "storeImg":"cake_chocolate.jpg"},{"itemid":"3","items":"Cookie","quantity":"8", "storeImg":"default.jpg"},{"itemid":"4","items":"Strawberry Shortcake","quantity":"4", "storeImg":"default.jpg"}];
 
     function importPics(r){
         let pics = {};
@@ -21,11 +21,12 @@
                                <td>
                                    {/*a.setAttribute("src", pics[`cake_matcha.jpg`]);*/}
                                    <img src={require('./pictures/'+storeImg)} class="thumb"/>
-                                   <p>{items}</p>
-                                   <p>{quantity}</p>
+                                   <h3> {items} $3</h3>
+                                   <p>Quantity remaining:{quantity}</p>
 
                                </td>
                            </tr>
+
                        )
                    })}
                </table>
