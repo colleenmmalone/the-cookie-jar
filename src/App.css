@@ -115,3 +115,8 @@ td{
 body{
   min-height: 100vh;
 }
+
+#regForm{
+  width: fit-content;
+  text-align: right;
+}
