@@ -1,28 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import ReactDOM from "react-dom";
 import GenerateTable from "./GenerateTable";
-import UploadAndDisplayImage from "./UploadAndDisplay";
 import axios from "axios";
 import "../css/Store.css";
+//import UpdateInventory from "./UpdateInventory";
 
 
 export default function Store(){
-    const pics = importPics(require.context('./pictures', false, /\.(png|jpe?g|svg)$/));
-    /*{generateTable(pics)}
-  <UploadAndDisplayImage/>*/
+    const loginsAPI = ("http://localhost:8081/logins/");    
+ 
 
-  
+    useEffect(function effectFunction() {
+        axios.get(loginsAPI+"whoisloggedin")
+            .then(response => response) 
+            .then(({data}) => {
+                currentUser(data)
+            .catch(err => {
+                console.log("Error occured", err);
+            })
+            });
+    }, []);
+
+
+  function currentUser(data){
+    console.log(data.firstName);
+    if(data.firstName === undefined){ //if no one is logged in
+        document.getElementById("thisUser").innerHTML = "";
+    }else{
+        document.getElementById("thisUser").innerHTML = data.firstName+ " is logged in!";
+        console.log(data.status);
+        if(data.status === 'EMPLOYEE'){
+            isEmployee();
+        }
+    }
+}
 
     return(
         <>
         
-        <h3>Store</h3>
+        <h3 class="pageTitle">Store</h3>
+        <h5 id="thisUser"></h5>
+        <div id="empBtnDiv"></div>
 
-      {/* <img src={pics[`cake_matcha.jpg`]} class="thumb" /> */}
-        <p>when an EMPLOYEE logs in, there should be an additional button that allows them to update invetory</p>
-        <p>hello this is the Store! Please buy lots of cookies</p>
-        this is where the inventory should be called and parsed into tables<br/>
-        should have image, name, price, add-to-cart button
-        <table className="inventory-table">
+
+{/*         <table className="inventory-table">
             <tbody>
                 <tr>
                 <th>Name:</th>
@@ -30,9 +51,8 @@ export default function Store(){
                 <th>Price:</th>
                 </tr>
             </tbody>
-        </table>
-        <p>the following upload function works, but we need to find a place to store our files</p>
-        <p>maybe a bucket on AWS?</p>
+        </table> */}
+
         <div id='storeDisplay'>
             <GenerateTable />
 
@@ -51,4 +71,19 @@ function importPics(r){
         return pics
        }
 
+function updateStore(){
+    ReactDOM.render(
+        <React.StrictMode>
+         <p>hello</p>
+        </React.StrictMode>,
+        document.getElementById('main')
+      );
+}
 
+
+function isEmployee(){
+    ReactDOM.render(
+        <button id="emp" onClick={updateStore}>Update Inventory</button>,
+        document.getElementById('empBtnDiv')
+    );
+}
