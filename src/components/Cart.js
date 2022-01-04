@@ -1,7 +1,7 @@
 import matcha from './pictures/cake_matcha.jpg';
 import choc from './pictures/cake_chocolate.jpg';
 import React, { useState, useEffect } from "react";
-import axios, { Axios } from "axios";
+import axios from "axios";
 import defaultImg from "./pictures/default.jpg";
 import croissant from "./pictures/croissant.jpg";
 import Button from 'react-bootstrap/Button';
@@ -43,9 +43,8 @@ export default function Cart(){
             .then(response => response) 
             .then(({data: cart}) => {
                 setCart(cart)
-                setTotal(total)
             });
-    });
+    }, []);
     
    function deleteItem(cartId) {
         axios.delete(`http://localhost:8081/deleteordercontents/${cartId}`)
@@ -76,15 +75,15 @@ export default function Cart(){
                 <img className='thumb' src={imgSrc} alt="cakeimage"/>
                 </td>
                 <td>{el.item}</td>
-                <td><input onChange={(e) => {setQuantity(e.target.value)}} className="cart-quantity-adjust" type="number" ></input>Quantity</td>
+                <td><input onChange={(e) => {setQuantity(e.target.value)}} placeholder={`Current Quantity: ${el.quantity}`} className="cart-quantity-adjust" type="number" ></input>Quantity</td>
                 <td>${el.price * el.quantity}</td>
-                <Button onClick={()=> updateQuantity(el.ordercontentsid, el.quantity)}variant="info">Update</Button>
+                <Button onClick={()=> updateQuantity(el.ordercontentsid, newQuantity)}variant="info">Update</Button>
                 <Button onClick={(e)=> deleteItem(el.ordercontentsid)}variant="danger">Remove</Button>
                 </tr>
             )   
         }
     }) 
-    
+    // 86
     let cartTotal = total.map(function(el) {
         let totalCost = 0;
         
@@ -103,6 +102,8 @@ export default function Cart(){
     
     // double check
     const updateQuantity = (ordercontentsid, quantity) => {
+        console.log(quantity);
+        console.log(ordercontentsid);
         axios.put(`http://localhost:8081/ordercontents/updateordercontents/quantity=${quantity}/${ordercontentsid}`, {
             quantity: quantity, 
             ordercontentsid: ordercontentsid
