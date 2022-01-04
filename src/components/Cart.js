@@ -43,9 +43,8 @@ export default function Cart(){
             .then(response => response) 
             .then(({data: cart}) => {
                 setCart(cart)
-                setTotal(total)
             });
-    });
+    }, []);
     
    function deleteItem(cartId) {
         axios.delete(`http://localhost:8081/deleteordercontents/${cartId}`)
