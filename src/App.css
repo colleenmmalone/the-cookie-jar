@@ -3,25 +3,14 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 30vmin;
   pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    animation: App-logo-spin infinite 30s linear;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
 #storeTitle {
@@ -51,6 +40,7 @@
 #main{
   padding: 20px 0px;
   background: linear-gradient(white 0%, pink 90%);
+  min-height: 600px;
 }
 
 #cart{
@@ -114,4 +104,8 @@ td{
 @font-face{
   font-family: "Hearts-Title";
   src: url(fonts/quirky-love-font/QuirkyLovePersonalUseRegular-RpwrM.ttf);
+}
+
+body{
+  min-height: 100vh;
 }
