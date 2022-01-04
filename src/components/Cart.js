@@ -35,6 +35,14 @@ export default function Cart(){
     //to Andy from Colleen (can send a get logins by id request via Postman to log someone in)
     const whoIsLoggedInAPI = ("http://localhost:8081/logins/whoisloggedin");
 
+    useEffect(function loginEffect() {
+        axios.get(whoIsLoggedInAPI) 
+            .then(response => response)
+            .then(({data: loggedInUser}) => {
+                setLoggedInUser(loggedInUser);
+            })
+    }, []);
+
     // retrieve logged in user in form of post request
     const cartAPI = ("http://localhost:8081/ordercontents");
 
