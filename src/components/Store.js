@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import GenerateTable from "./GenerateTable";
 import axios from "axios";
 import "../css/Store.css";
-import UpdateInventory from "./UpdateInventory";
+//import UpdateInventory from "./UpdateInventory";
 
 
 export default function Store(){
@@ -74,7 +74,7 @@ function importPics(r){
 function updateStore(){
     ReactDOM.render(
         <React.StrictMode>
-          <UpdateInventory />
+          <p>hello</p>
         </React.StrictMode>,
         document.getElementById('main')
       );
