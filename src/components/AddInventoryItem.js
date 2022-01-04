@@ -1,14 +1,15 @@
 import React from "react";
 import { useState } from "react";
+import axios from 'axios';
 const AddInventoryByItem = () => {
     const [item, setItem] = useState("");
     const [quantity, setQuantity] = useState("");
     const[price, setPrice] = useState("");
     const[storeImage, setImage] = useState("");
-
-    const postRequestHandler = () => {};
+                  
+   // useEffect() => {};
     const data = {item, quantity, price, storeImage};
-    axios.post('http://localhost:8081/newitem', data)
+    axios.post('http://localhost:8081/inventory', data)
     .then(function (response){
         console.log(response);
         if (response.success) {
@@ -45,7 +46,8 @@ const AddInventoryByItem = () => {
                 placeholder="Insert price here"
         />
         <input
-            type="image"
+            type="image" 
+            alt= "default"
             value={storeImage}
             onChange={(e) => setImage(e.target.files)}
         />
@@ -54,4 +56,4 @@ const AddInventoryByItem = () => {
     );
 };
 
-export default POST;
+export default AddInventoryByItem;
