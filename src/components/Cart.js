@@ -15,6 +15,8 @@ export default function Cart(){
     // initial state of cart should be empty
     const [cart, setCart] = useState([]);
 
+    const [price, totalPrice] = useState(0);
+
     // state for updating quantity and sending to backend
     const [newQuantity, setQuantity] = useState(0);
 
@@ -29,7 +31,7 @@ export default function Cart(){
             "order_date": "test",
             "order_status": "Pending"
         }
-
+        // example logged in user
     let loggedUser = {
         "id": 1,
         "email": "email",
@@ -59,7 +61,7 @@ export default function Cart(){
             });
     }, []);
 
-    // cart
+    // cart changes testuser to loggedinUser.id
     let cartItems = cart.map(function(el) {
         let imgSrc;
         if (testUser.orderid === el.orderid) { 
@@ -71,8 +73,8 @@ export default function Cart(){
                 imgSrc = croissant;
             } else {
                 imgSrc = defaultImg;
-            }
-            
+            }  
+
             return (
                 <tr key={el.ordercontentsid}>
                 <td >
@@ -87,40 +89,33 @@ export default function Cart(){
             )   
         }
     }) 
-    // 86
-    let cartTotal = total.map(function(el) {
-        let totalCost = 0;
-        
-        return (
-            <span id="sideBar">
-            <h3>Your total:</h3>
-            <div id="totals">
-                <p>Tax: $1.93</p>
-                <p><strong>Total: 0</strong></p>
-            </div>
-            <br/><br/><br/>
-            <button id="pay" onClick={pay}>Checkout</button>
-            </span>
-        )
-    })
+    // testing this function still
+    let cartTotal = cart.reduce((total, currVal) => 
+        total = total + (currVal.quantity *currVal.price), 0)
+
     
-    // double check
+
+    //update order quantity
     const updateQuantity = (ordercontentsid, quantity) => {
         axios.put(`http://localhost:8081/ordercontents/updateordercontents/quantity=${quantity}/${ordercontentsid}`, {
             quantity: quantity, 
             ordercontentsid: ordercontentsid
         }).then((response) => {
+            setCart(cart.map((val) => {
+                return val.ordercontentsid === ordercontentsid ? { ordercontentsid: val.ordercontentsid, orderid: val.orderid, item: val.item, price: val.price, quantity: newQuantity} : val
+            }))
             console.log(response);
             alert("Quantity has been updated.");
         })
     }
 
+    // delete order content
     const deleteOrderContents = (ordercontentsid) => {
-        axios.delete(`http://localhost:8081/ordercontents/deleteordercontents/${ordercontentsid}`, {
-            ordercontentsid: ordercontentsid
-        }).then((response) => {
-            console.log(response);
-            alert("Item has been deleted.")
+        axios.delete(`http://localhost:8081/ordercontents/deleteordercontents/${ordercontentsid}`)
+        .then((response) => {
+            setCart(cart.filter((val) => {
+                return val.ordercontentsid !== ordercontentsid
+            }))
         })
     }
     // onlick function
@@ -140,12 +135,11 @@ export default function Cart(){
             <h3>Your total:</h3>
             <div id="totals">
                 <p>Tax: $1.93</p>
-                <p><strong>Total: 0</strong></p>
+                <p><strong>Total: ${cartTotal}</strong></p>
             </div>
             <br/><br/><br/>
             <button id="pay" onClick={pay}>Checkout</button>
             </span>
-         {cartTotal}
         </>
     )
 }
