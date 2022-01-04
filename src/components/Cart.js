@@ -32,6 +32,9 @@ export default function Cart(){
             "order_status": "Pending"
         }
     // next api would be loggedInUser 
+    //to Andy from Colleen (can send a get logins by id request via Postman to log someone in)
+    const whoIsLoggedInAPI = ("http://localhost:8081/logins/whoisloggedin");
+
     // retrieve logged in user in form of post request
     const cartAPI = ("http://localhost:8081/ordercontents");
 

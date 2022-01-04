@@ -4,8 +4,20 @@ import React from 'react';
 import logo from './logo.svg';
 
 import Register from "./Register";
+import axios from 'axios';
+
+const loginsAPI = ("http://localhost:8081/logins");
+
+
 
 export default function Home(){
+
+    function submit(){
+        axios.get(loginsAPI).then(function (response){document.getElementById("main").append(response.data[6])});
+    
+    }
+
+
     return(
         <>
         <h3>Login</h3>
@@ -34,6 +46,4 @@ function register(){
       );
 }
 
-function submit(){
-    alert("Axios method needs to be written");
-}
+
