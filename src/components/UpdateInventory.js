@@ -1,3 +1,5 @@
+export default function UpdateInventory(){
+    
 import React from "react";
 import { useState } from "react";
 import axios from 'axios';
@@ -63,7 +65,5 @@ export default function UpdateInventory() {
             console.log(error.message)
         }
     }
-    
-    
-    
+
 }
