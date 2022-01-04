@@ -42,6 +42,9 @@ export default function Cart(){
             data: total}) => {
                 setCart(cart)
                 setTotal(total)
+            .catch(err => {
+                console.log("Error occured", err);
+            })
             });
     }, []);
     
@@ -59,7 +62,6 @@ export default function Cart(){
                imgSrc = defaultImg;
            }
           
-
             return (
                 <tr key={el.ordercontentsid}>
                 <td >
@@ -89,6 +91,10 @@ export default function Cart(){
             </span>
         )
     })
+
+    let deleteItem = function deleteCartItem(cartId) {
+        axios.delete(`http://localhost:8081/deleteordercontents/${cartId}`);
+    }
     
     return(
         <>
