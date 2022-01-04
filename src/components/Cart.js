@@ -22,7 +22,7 @@ export default function Cart(){
 
     const [img, setImg] = useState([]);
   
-    // test value === this should be the logged in user that we get from the backend 
+    // test value === this should be the cart items that we get from the backend 
     let testUser = 
         {
             "orderid": 28,
@@ -31,6 +31,14 @@ export default function Cart(){
             "order_date": "test",
             "order_status": "Pending"
         }
+
+    let loggedUser = {
+        "email": "email",
+        "first_name": "first_name",
+        "last_name": "last_name",
+        "pswd": "pwsd",
+        "status": "status",
+    }
     // next api would be loggedInUser 
     //to Andy from Colleen (can send a get logins by id request via Postman to log someone in)
     const whoIsLoggedInAPI = ("http://localhost:8081/logins/whoisloggedin");
@@ -43,7 +51,6 @@ export default function Cart(){
             })
     }, []);
 
-    // retrieve logged in user in form of post request
     const cartAPI = ("http://localhost:8081/ordercontents");
 
     useEffect(function effectFunction() {
