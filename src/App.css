@@ -20,6 +20,12 @@
   font-size: 70px;
 }
 
+.pageTitle{
+  font-family: "Hearts-Title";
+  font-size: 40px;
+  color:#31aaeb;
+}
+
 #navBar{
   background-color: #61dafb;
   width: 95%;

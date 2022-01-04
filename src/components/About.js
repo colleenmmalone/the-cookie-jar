@@ -1,7 +1,7 @@
 export default function About(){
     return(
         <>
-        <h3>Store hours</h3>
+        <h3 class="pageTitle">Store hours</h3>
         <p>Monday: closed</p>
         <p>Tues-Thurs: 10am-6pm</p>
         <p>Fri-Sun: 10am-6pm</p>

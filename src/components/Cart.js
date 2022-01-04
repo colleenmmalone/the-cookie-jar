@@ -102,7 +102,7 @@ export default function Cart(){
     return(
         <>
         <span id="cart">
-        <h3>Shopping Cart</h3>
+        <h3 class="pageTitle">Shopping Cart</h3>
             <table class="table table-sm">
                 <tbody>
                 <tr>
