@@ -21,8 +21,8 @@ export default function Home(){
         <p>Come to the dark side; we have cookies :)</p>
 
         </>
-    )
 }
+
 
 
 function register(){
