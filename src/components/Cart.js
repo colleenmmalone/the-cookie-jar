@@ -4,7 +4,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import defaultImg from "./pictures/default.jpg";
 import croissant from "./pictures/croissant.jpg";
-
+import Button from 'react-bootstrap/Button';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import '../css/Cart.css'
 export default function Cart(){
 
     // retrieve logged in user from backend
@@ -61,11 +63,12 @@ export default function Cart(){
             return (
                 <tr key={el.ordercontentsid}>
                 <td >
-                <img className='thumb' src={imgSrc}/>
+                <img className='thumb' src={imgSrc} alt="cakeimage"/>
                 </td>
                 <td>{el.item}</td>
-                <td><input type="number" value={el.quantity}></input></td>
+                <td><input className="cart-quantity-adjust" type="number" value={el.quantity}></input>Quantity</td>
                 <td>${el.price * el.quantity}</td>
+                <Button variant="danger">Remove</Button>
                 </tr>
             )   
         }
@@ -91,7 +94,7 @@ export default function Cart(){
         <>
         <span id="cart">
         <h3>Shopping Cart</h3>
-            <table>
+            <table class="table table-sm">
                 <tbody>
                 <tr>
                     {cartItems}
