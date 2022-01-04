@@ -74,7 +74,7 @@ function importPics(r){
 function updateStore(){
     ReactDOM.render(
         <React.StrictMode>
-         <p>hello</p>>
+         <p>hello</p>
         </React.StrictMode>,
         document.getElementById('main')
       );
