@@ -1,7 +1,7 @@
 import matcha from './pictures/cake_matcha.jpg';
 import choc from './pictures/cake_chocolate.jpg';
 import React, { useState, useEffect } from "react";
-import axios, { Axios } from "axios";
+import axios from "axios";
 import defaultImg from "./pictures/default.jpg";
 import croissant from "./pictures/croissant.jpg";
 import Button from 'react-bootstrap/Button';
@@ -15,14 +15,14 @@ export default function Cart(){
     // initial state of cart should be empty
     const [cart, setCart] = useState([]);
 
+    const [price, totalPrice] = useState(0);
+
     // state for updating quantity and sending to backend
     const [newQuantity, setQuantity] = useState(0);
 
     const [total, setTotal] = useState([]);
-
-    const [img, setImg] = useState([]);
   
-    // test value === this should be the logged in user that we get from the backend 
+    // test value === this should be the cart items that we get from the backend 
     let testUser = 
         {
             "orderid": 28,
@@ -31,11 +31,26 @@ export default function Cart(){
             "order_date": "test",
             "order_status": "Pending"
         }
-    // next api would be loggedInUser 
-    //to Andy from Colleen (can send a get logins by id request via Postman to log someone in)
+        // example logged in user
+    let loggedUser = {
+        "id": 1,
+        "email": "email",
+        "first_name": "first_name",
+        "last_name": "last_name",
+        "pswd": "pwsd",
+        "status": "status",
+    }
+
     const whoIsLoggedInAPI = ("http://localhost:8081/logins/whoisloggedin");
 
-    // retrieve logged in user in form of post request
+    useEffect(function loginEffect() {
+        axios.get(whoIsLoggedInAPI) 
+            .then(response => response)
+            .then(({data: loggedInUser}) => {
+                setLoggedInUser(loggedInUser);
+            })
+    }, []);
+
     const cartAPI = ("http://localhost:8081/ordercontents");
 
     useEffect(function effectFunction() {
@@ -45,19 +60,10 @@ export default function Cart(){
                 setCart(cart)
             });
     }, []);
-    
-   function deleteItem(cartId) {
-        axios.delete(`http://localhost:8081/deleteordercontents/${cartId}`)
-        .then(response => console.log(response))
-        .catch(error => {
-            console.log(error);
-        }, []);
-    }
-    
-    // cart
+
+    // cart changes testuser to loggedinUser.id
     let cartItems = cart.map(function(el) {
         let imgSrc;
-        
         if (testUser.orderid === el.orderid) { 
             if (el.item === "Matcha Cake") {
                 imgSrc = matcha;
@@ -67,46 +73,49 @@ export default function Cart(){
                 imgSrc = croissant;
             } else {
                 imgSrc = defaultImg;
-            }
-            
+            }  
+
             return (
                 <tr key={el.ordercontentsid}>
                 <td >
                 <img className='thumb' src={imgSrc} alt="cakeimage"/>
                 </td>
                 <td>{el.item}</td>
-                <td><input onChange={(e) => {setQuantity(e.target.value)}} className="cart-quantity-adjust" type="number" ></input>Quantity</td>
+                <td><input onChange={(e) => {setQuantity(e.target.value)}} placeholder={`Current Quantity: ${el.quantity}`} className="cart-quantity-adjust" type="number" ></input>Quantity</td>
                 <td>${el.price * el.quantity}</td>
-                <Button onClick={()=> updateQuantity(el.ordercontentsid, el.quantity)}variant="info">Update</Button>
-                <Button onClick={(e)=> deleteItem(el.ordercontentsid)}variant="danger">Remove</Button>
+                <Button onClick={()=> updateQuantity(el.ordercontentsid, newQuantity)}variant="info">Update</Button>
+                <Button onClick={(e)=> deleteOrderContents(el.ordercontentsid)}variant="danger">Remove</Button>
                 </tr>
             )   
         }
     }) 
+    // testing this function still
+    let cartTotal = cart.reduce((total, currVal) => 
+        total = total + (currVal.quantity *currVal.price), 0)
+
     
-    let cartTotal = total.map(function(el) {
-        let totalCost = 0;
-        
-        return (
-            <span id="sideBar">
-            <h3>Your total:</h3>
-            <div id="totals">
-                <p>Tax: $1.93</p>
-                <p><strong>Total: 0</strong></p>
-            </div>
-            <br/><br/><br/>
-            <button id="pay" onClick={pay}>Checkout</button>
-            </span>
-        )
-    })
-    
-    // double check
+
+    //update order quantity
     const updateQuantity = (ordercontentsid, quantity) => {
         axios.put(`http://localhost:8081/ordercontents/updateordercontents/quantity=${quantity}/${ordercontentsid}`, {
             quantity: quantity, 
             ordercontentsid: ordercontentsid
         }).then((response) => {
+            setCart(cart.map((val) => {
+                return val.ordercontentsid === ordercontentsid ? { ordercontentsid: val.ordercontentsid, orderid: val.orderid, item: val.item, price: val.price, quantity: newQuantity} : val
+            }))
             console.log(response);
+            alert("Quantity has been updated.");
+        })
+    }
+
+    // delete order content
+    const deleteOrderContents = (ordercontentsid) => {
+        axios.delete(`http://localhost:8081/ordercontents/deleteordercontents/${ordercontentsid}`)
+        .then((response) => {
+            setCart(cart.filter((val) => {
+                return val.ordercontentsid !== ordercontentsid
+            }))
         })
     }
     // onlick function
@@ -126,12 +135,11 @@ export default function Cart(){
             <h3>Your total:</h3>
             <div id="totals">
                 <p>Tax: $1.93</p>
-                <p><strong>Total: 0</strong></p>
+                <p><strong>Total: ${cartTotal}</strong></p>
             </div>
             <br/><br/><br/>
             <button id="pay" onClick={pay}>Checkout</button>
             </span>
-         {cartTotal}
         </>
     )
 }
