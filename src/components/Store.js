@@ -1,64 +1,84 @@
-import React, { useState } from "react";
-import UploadAndDisplayImage from "./UploadAndDisplay";
+import React, { useState, useEffect } from "react";
+import ReactDOM from "react-dom";
+import GenerateTable from "./GenerateTable";
+import axios from "axios";
+import "../css/Store.css";
+//import UpdateInventory from "./UpdateInventory";
 
 
 export default function Store(){
-    const pics = importPics(require.context('./pictures', false, /\.(png|jpe?g|svg)$/));
+    const loginsAPI = ("http://localhost:8081/logins/");    
+ 
+
+    useEffect(function effectFunction() {
+        axios.get(loginsAPI+"whoisloggedin")
+            .then(response => response) 
+            .then(({data}) => {
+                currentUser(data)})
+            .catch(err => {
+                console.log("Error occured", err);
+
+            });
+    }, []);
+
+
+  function currentUser(data){
+    console.log(data.firstName);
+    if(data.firstName === undefined){ //if no one is logged in
+        document.getElementById("thisUser").innerHTML = "";
+    }else{
+        document.getElementById("thisUser").innerHTML = data.firstName+ " is logged in!";
+        console.log(data.status);
+        if(data.status === 'EMPLOYEE'){
+            isEmployee();
+        }
+    }
+}
 
     return(
         <>
-        <h3>Store</h3>
-        <img src={pics[`cake_matcha.jpg`]} class="thumb" />
-        <p>when an EMPLOYEE logs in, there should be an additional button that allows them to update invetory</p>
-        <p>hello this is the Store! Please buy lots of cookies</p>
-
-        this is where the inventory should be called and parsed into tables<br/>
-        should have image, name, price, add-to-cart button
-        <p>the following upload function works, but we need to find a place to store our files</p>
-        <p>maybe a bucket on AWS?</p>
         
-        <UploadAndDisplayImage/>
-        {generateTable(pics)};
+        <h3 class="pageTitle">Store</h3>
+        <h5 id="thisUser"></h5>
+        <div id="empBtnDiv"></div>
 
+
+{/*         <table className="inventory-table">
+            <tbody>
+                <tr>
+                <th>Name:</th>
+                <th>Quantity</th>
+                <th>Price:</th>
+                </tr>
+            </tbody>
+        </table> */}
+
+        <div id='storeDisplay'>
+            <GenerateTable />
+
+        </div>
+        
+
+
+        
         </>
     )
 }
 
-function importPics(r){
-        let pics = {};
-         r.keys().forEach((item, index) => { pics[item.replace('./', '')] = r(item); });
-        return pics
-       }
-    
 
-function generateTable(pics){
-    var dataSection = document.getElementById("main");
-    var myArr = [{"itemid":"1","items":"Matcha Cake","quantity":"5"},{"itemid":"2","items":"Chocolate Cake","quantity":"4"},{"itemid":"3","items":"Cookie","quantity":"8"},{"itemid":"4","items":"Strawberry Shortcake","quantity":"4"}];
+function updateStore(){
+    ReactDOM.render(
+        <React.StrictMode>
+         <p>hello</p>
+        </React.StrictMode>,
+        document.getElementById('main')
+      );
+}
 
-    var table = document.createElement('table');
 
-    for(var i=0 ; i < 4 ; i++){
-        console.log(myArr[i]);
-        var tr = document.createElement('tr');  
-        var td = document.createElement("td");
-
-            var a = document.createElement("img");
-                a.setAttribute("src", pics[`cake_matcha.jpg`]);
-                a.setAttribute("class", "thumb");
-            var b = document.createElement("p");
-              b.innerHTML = myArr[i].items;
-            var c = document.createElement("button");
-                c.setAttribute("id", myArr.itemid);
-                c.textContent = myArr[i].itemid;
-
-        td.appendChild(a);  
-        td.appendChild(b);       
-        td.appendChild(c);  
-        tr.appendChild(td);
-        tr.appendChild(td);
-
-        table.appendChild(tr);
-    }
-    dataSection.appendChild(table);
-
+function isEmployee(){
+    ReactDOM.render(
+        <button id="emp" onClick={updateStore}>Update Inventory</button>,
+        document.getElementById('empBtnDiv')
+    );
 }
