@@ -9,8 +9,9 @@ import Store from "./Store";
 import Home from "./Home";
 import Orders from './Orders';
 import Cart from './Cart';
-
+import InventoryList from './InventoryList';
 import cartImg from './pictures/shopping-cart.png'
+
 
 
 export default function NavBar() {
@@ -20,7 +21,9 @@ export default function NavBar() {
      <button onClick={store}>Store</button>&emsp;
      <button onClick={about}>About</button>&emsp;
      <button onClick={settings}>Settings</button>&emsp;
+     <button onClick={inventory}>Inventory</button>&emsp;
      <button onClick={orders}>Orders</button>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+     
      <img src={cartImg} id="cartImg" onClick={cart}/>
     </div>
   );
@@ -82,4 +85,14 @@ function cart(){
     </React.StrictMode>,
     document.getElementById('main')
   );
+}
+
+function inventory(){
+  ReactDOM.render(
+    <React.StrictMode>
+      <InventoryList />
+    </React.StrictMode>,
+    document.getElementById('main')
+  );
+  
 }

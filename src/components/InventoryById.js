@@ -1,28 +1,23 @@
-import React from React;
-import { useEffect,useState} from "React";
-import {useTable} from "react-table";
+import React from "react";
+import {useEffect, useState} from "react";
+//import {useTable} from "react-table";
 import axios from 'axios';
 
-const getAllInventoryItems = () => {
-    const url = 'http://localhost:8081/inventory/{id}'
+
+
+const InventoryById = (id) => {
+  console.log(id["id"]);
+    const url = 'http://localhost:8081/inventory/' + id["id"]
   
-    async function getAllInventoryItemsById(){
-        try{
-            const response = await axios.get('url',{
-                params: {
-                ID: id
-                }
-                  });
-            }
-          //  console.log(response);
-             
-        catch (error){
-            console.error(error);
-        }
-    }
+    const [data,setData] = useState([])
     
+   useEffect(() => {
+    axios.get(url).then(response => setData(response.data))
+  }, [])
+
   
     const renderTable = () => {
+    
       return data.map(inventory => {
         return (
           <tr>
@@ -35,7 +30,7 @@ const getAllInventoryItems = () => {
         )
       })
     }
-  
+    
     return (
       <div>
         <h1 id="title">Inventory Table</h1>
@@ -54,3 +49,5 @@ const getAllInventoryItems = () => {
       </div>
     )
   }
+
+  export default InventoryById;

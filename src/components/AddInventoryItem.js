@@ -1,18 +1,22 @@
 import React from "react";
 import { useState } from "react";
-const AddInventoryByItem = () => {
+import axios from 'axios'; 
+import InventoryList from "./InventoryList";
+import NavBar from "./navBar";
+
+const AddInventoryItem = () => {
     const [item, setItem] = useState("");
     const [quantity, setQuantity] = useState("");
     const[price, setPrice] = useState("");
     const[storeImage, setImage] = useState("");
 
-    const postRequestHandler = () => {};
+   // const postRequestHandler = () => {};
     const data = {item, quantity, price, storeImage};
-    axios.post('http://localhost:8081/newitem', data)
+    axios.post('http://localhost:8081/inventory', data)
     .then(function (response){
         console.log(response);
         if (response.success) {
-            alert("Your item(s) was/were successfully saved")
+            alert("Your item(s) was successfully saved")
         }
         else {
             alert("Error occured: Unable to add an item to inventory")
@@ -49,9 +53,9 @@ const AddInventoryByItem = () => {
             value={storeImage}
             onChange={(e) => setImage(e.target.files)}
         />
-                
+          <button onClick={NavBar} type="submit">submit changes</button>      
      </>
     );
 };
 
-export default POST;
+export default AddInventoryItem;

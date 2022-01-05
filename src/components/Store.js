@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+//import { render } from "@testing-library/react";
+//import React, { useState } from "react";
+//import InventoryList from "./InventoryList";
 import UploadAndDisplayImage from "./UploadAndDisplay";
+
 
 
 export default function Store(){
     const pics = importPics(require.context('./pictures', false, /\.(png|jpe?g|svg)$/));
-
+    
     return(
         <>
         <h3>Store</h3>
@@ -16,10 +19,10 @@ export default function Store(){
         should have image, name, price, add-to-cart button
         <p>the following upload function works, but we need to find a place to store our files</p>
         <p>maybe a bucket on AWS?</p>
-        
-        <UploadAndDisplayImage/>
-        {generateTable(pics)};
 
+        <UploadAndDisplayImage/>
+         {generateTable(pics)};
+            
         </>
     )
 }
@@ -61,4 +64,17 @@ function generateTable(pics){
     }
     dataSection.appendChild(table);
 
+ 
+    
+    
+    
+
+
+
+
+
+
+
+
 }
+
