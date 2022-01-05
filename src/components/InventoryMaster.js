@@ -5,8 +5,7 @@ import InventoryById from "./InventoryById";
 import InventoryList from "./InventoryList";
 import AddInventoryItem from "./AddInventoryItem";
 import ReactDOM from "react-dom";
-//import UpdateInventory from "./UpdateInventory";
-//            <button onClick={editItem}>Update Inventory</button>
+
 export default function InventoryMaster() {
 
     const [id, setId] = useState('');
@@ -15,10 +14,10 @@ export default function InventoryMaster() {
         this.props.history.push(`/inventory/$this.state.id/edit`);
     }
 
-   
+
     return (
         <div>
-            <input onChange={event => setId(event.target.value)} type="number" placeholder="enter itemID here"></input>
+            <input onChange={event => setId(event.target.value)} type="number" placeholder="enter itemID here" min="0"></input>
             <button onClick={inventorybyID}>View Inventory by Id</button>
             <br></br>
             <button onClick={viewAllInventory}>View Inventory</button>
@@ -60,16 +59,4 @@ export default function InventoryMaster() {
             document.getElementById('inventory')
         );
     }
-
-
-    // function updateInventory(){
-    //   ReactDOM.render(
-    //     <React.StrictMode>
-    //       <UpdateInventory id={id} />
-    //     </React.StrictMode>,
-    //     document.getElementById('inventory')
-    //   );
-    // }
-
-
 }
