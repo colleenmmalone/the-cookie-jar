@@ -16,6 +16,9 @@ export default function Cart(props){
     // initial state of cart should be empty
     const [cart, setCart] = useState([]);
 
+    //toggle cart to send props down
+    const [cartPage, setCartPage] = useState(false);
+
     // state for updating quantity and sending to backend
     const [newQuantity, setQuantity] = useState(0);
   
@@ -73,6 +76,7 @@ export default function Cart(props){
             }  
 
             return (
+
                 <tr key={el.ordercontentsid}>
                 <td >
                 <img className='thumb' src={imgSrc} alt="cakeimage"/>
@@ -115,7 +119,7 @@ export default function Cart(props){
             }))
         })
     }
-    // onlick function
+    // onlick function conditionally render
     return(
         <>
         <span id="cart">
@@ -123,7 +127,8 @@ export default function Cart(props){
             <table class="table table-sm">
                 <tbody>
                 <tr>
-                    {cartItems}
+                    <button onClick={() => setCartPage(cartPage)}>Cart</button>
+    
                 </tr>
                 </tbody>
             </table>

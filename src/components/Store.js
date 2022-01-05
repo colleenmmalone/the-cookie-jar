@@ -21,6 +21,8 @@ export default function Store(){
     const [itemQuantity, setItemQuantity] = useState(0)
     const [basket, setBasket] = useState([]);
 
+    const [cartPage, setCartPage] = useState(false);
+
     const inventoryUrl = ("http://localhost:8081/inventory");
 
     useEffect(function inventoryFunc() {
@@ -102,12 +104,13 @@ export default function Store(){
     return(
         <>
             <h3 class="pageTitle">Store</h3>
+            <button onClick={() => setCartPage(!cartPage)}>Checkout Cart</button>
             <h5 id="thisUser"></h5>
             <div id="empBtnDiv"></div>
             <span id="cart">
                 <table class="table table-sm">
                         <tbody>
-                            {inventoryItem}
+                            {setCartPage && <inventoryItem/>}
                         </tbody>
                     </table>
             </span>    
