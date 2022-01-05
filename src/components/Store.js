@@ -3,13 +3,34 @@ import ReactDOM from "react-dom";
 import GenerateTable from "./GenerateTable";
 import axios from "axios";
 import "../css/Store.css";
+import matcha from './pictures/cake_matcha.jpg';
+import croissant from "./pictures/croissant.jpg";
+import choc from './pictures/cake_chocolate.jpg';
+import defaultImg from "./pictures/default.jpg";
+import 'bootstrap/dist/css/bootstrap.min.css'
+import '../css/Cart.css'
+import Button from 'react-bootstrap/Button';
 //import UpdateInventory from "./UpdateInventory";
 
 
 export default function Store(){
-    const loginsAPI = ("http://localhost:8081/logins/");    
+    const loginsAPI = ("http://localhost:8081/logins/");
+    
+    const [item, setItems] = useState([]);
+    const [itemQuantity, setItemQuantity] = useState(0)
+
+    const inventoryUrl = ("http://localhost:8081/inventory");
+
+    useEffect(function inventoryFunc() {
+        axios.get(inventoryUrl)
+            .then(response=> response)
+            .then(({data: item}) => {
+                setItems(item)
+            }); 
+    }, []);
  
 
+    // render inventory items
     useEffect(function effectFunction() {
         axios.get(loginsAPI+"whoisloggedin")
             .then(response => response) 
@@ -20,6 +41,36 @@ export default function Store(){
             })
             });
     }, []);
+
+    const addToCart = () => {
+        alert("hello");
+    }
+
+    let inventoryItem = item.map(function(el) {
+        let imgSrc;
+        console.log(el);
+            if (el.items === "matcha cake") {
+                imgSrc = matcha;
+            } else if (el.items === "chocolate cake") {
+                imgSrc= choc;
+            } else if (el.items=== "croissant") {
+                imgSrc = croissant;
+            } else {
+                imgSrc = defaultImg;
+            }
+            return (
+                <tr key={el.itemid}>
+                <td>
+                <img className='thumb' src={imgSrc} alt="cakeimage"/>
+                </td>
+                <td>{el.items}</td>
+                <td>Price: ${el.price}</td>
+                <td>Quantity: {el.quantity}</td>
+                <Button onClick={(e)=> addToCart()} variant="info">Add To Cart</Button>
+                </tr>
+            )   
+        
+    }) 
 
 
   function currentUser(data){
@@ -37,39 +88,22 @@ export default function Store(){
 
     return(
         <>
-        
-        <h3 class="pageTitle">Store</h3>
-        <h5 id="thisUser"></h5>
-        <div id="empBtnDiv"></div>
-
-
-{/*         <table className="inventory-table">
-            <tbody>
-                <tr>
-                <th>Name:</th>
-                <th>Quantity</th>
-                <th>Price:</th>
-                </tr>
-            </tbody>
-        </table> */}
-
-        <div id='storeDisplay'>
-            <GenerateTable />
-
-        </div>
-        
-
-
-        
+            <h3 class="pageTitle">Store</h3>
+            <h5 id="thisUser"></h5>
+            <div id="empBtnDiv"></div>
+            <span id="cart">
+                <table class="table table-sm">
+                        <tbody>
+                        <tr>
+                            {inventoryItem}
+                        </tr>
+                        </tbody>
+                    </table>
+            </span>    
         </>
     )
 }
 
-function importPics(r){
-        let pics = {};
-         r.keys().forEach((item, index) => { pics[item.replace('./', '')] = r(item); });
-        return pics
-       }
 
 function updateStore(){
     ReactDOM.render(

@@ -19,8 +19,6 @@ export default function Cart(){
 
     // state for updating quantity and sending to backend
     const [newQuantity, setQuantity] = useState(0);
-
-    const [total, setTotal] = useState([]);
   
     // test value === this should be the cart items that we get from the backend 
     let testUser = 
