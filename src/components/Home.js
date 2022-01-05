@@ -61,8 +61,6 @@ export default function Home(){
         </>
     )
 }
-
-
 function register(){
     ReactDOM.render(
         <React.StrictMode>
