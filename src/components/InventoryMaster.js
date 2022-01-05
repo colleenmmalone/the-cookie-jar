@@ -14,6 +14,8 @@ export default function InventoryMaster() {
         event.preventDefault();
         this.props.history.push(`/inventory/$this.state.id/edit`);
     }
+
+   
     return (
         <div>
             <input onChange={event => setId(event.target.value)} type="number" placeholder="enter itemID here"></input>
@@ -24,7 +26,9 @@ export default function InventoryMaster() {
             <button onClick={additem}>Add item to Inventory</button>
             <h1 class="pageTitle">Inventory</h1>
 
-            <div id="inventory"></div>
+            <div id="inventory">
+                <InventoryList />
+            </div>
 
         </div>
     )
