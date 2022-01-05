@@ -19,6 +19,7 @@ export default function Store(){
     
     const [item, setItems] = useState([]);
     const [itemQuantity, setItemQuantity] = useState(0)
+    const [basket, setBasket] = useState([]);
 
     const inventoryUrl = ("http://localhost:8081/inventory");
 
@@ -36,13 +37,12 @@ export default function Store(){
         axios.get(loginsAPI+"whoisloggedin")
             .then(response => response) 
             .then(({data}) => {
-                currentUser(data)
+                currentUser(data)})
             .catch(err => {
                 console.log("Error occured", err);
-            })
+
             });
     }, []);
-
 
     const addToCart = (el) => {
         const exist = basket.find(x => x.itemid === el.itemid); 
@@ -55,11 +55,12 @@ export default function Store(){
         // else add item and set initial quantity to 1
             setBasket([...basket, {...el, quantity: 1}]);
         }
-
-
+    }
+    console.log(basket);
+    
     let inventoryItem = item.map(function(el) {
         let imgSrc;
-        console.log(el);
+        // console.log(el);
             if (el.items === "matcha cake") {
                 imgSrc = matcha;
             } else if (el.items === "chocolate cake") {
@@ -77,7 +78,7 @@ export default function Store(){
                 <td>{el.items}</td>
                 <td>Price: ${el.price}</td>
                 <td>Quantity: {el.quantity}</td>
-                <Button onClick={(e)=> addToCart()} variant="info">Add To Cart</Button>
+                <Button onClick={()=> addToCart(el)} variant="info">Add To Cart</Button>
                 </tr>
             )   
         
@@ -106,17 +107,13 @@ export default function Store(){
             <span id="cart">
                 <table class="table table-sm">
                         <tbody>
-                        <tr>
                             {inventoryItem}
-                        </tr>
                         </tbody>
                     </table>
             </span>    
         </>
     )
 }
-
-
 
 
 function updateStore(){
@@ -134,5 +131,4 @@ function isEmployee(){
         <button id="emp" onClick={updateStore}>Update Inventory</button>,
         document.getElementById('empBtnDiv')
     );
-    }
 }
