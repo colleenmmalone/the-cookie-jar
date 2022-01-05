@@ -9,6 +9,10 @@ import Store from "./Store";
 import Home from "./Home";
 import Orders from './Orders';
 import Cart from './Cart';
+
+
+
+
 import Logout from './Logout';
 
 import cartImg from './pictures/shopping-cart.png'
@@ -22,6 +26,7 @@ export default function NavBar() {
      <button onClick={settings}>Settings</button>&emsp;
      <button onClick={orders}>Orders</button>&emsp;
      <button onClick={logout}>Logout</button>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+     
      <img src={cartImg} id="cartImg" onClick={cart}/>
     </div>
   );
@@ -89,3 +94,4 @@ function cart(){
     document.getElementById('main')
   );
 }
+

@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import Home from './components/Home';
 import Footbar from './components/Footbar';
 
+
 ReactDOM.render(
   <React.StrictMode>
     <NavBar />
@@ -26,6 +27,10 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('footbar')
 );
+
+
+  
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
