@@ -1,19 +1,16 @@
 import React from "react";
-import { useEffect, useState } from "react";
-import axios from 'axios';
+import {  useState } from "react";
+//import axios from 'axios';
 import InventoryById from "./InventoryById";
 import InventoryList from "./InventoryList";
-import AddInventoryItem from "./AddInventoryItem";
 import ReactDOM from "react-dom";
+import AddInventoryItem from "./AddInventoryItem";
 //import UpdateInventory from "./UpdateInventory";
 //            <button onClick={editItem}>Update Inventory</button>
 export default function InventoryMaster() {
 
     const [id, setId] = useState('');
-    const editItem = event => {
-        event.preventDefault();
-        this.props.history.push(`/inventory/$this.state.id/edit`);
-    }
+    
     return (
         <div>
             <input onChange={event => setId(event.target.value)} type="number" placeholder="enter itemID here"></input>
