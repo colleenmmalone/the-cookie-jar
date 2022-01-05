@@ -10,9 +10,13 @@ import Home from "./Home";
 import Orders from './Orders';
 import Cart from './Cart';
 import InventoryList from './InventoryList';
+
+
+
+
+import Logout from './Logout';
+
 import cartImg from './pictures/shopping-cart.png'
-
-
 
 export default function NavBar() {
   return (
@@ -28,7 +32,6 @@ export default function NavBar() {
     </div>
   );
 }
-
 
 function home(){
   ReactDOM.render(
@@ -57,9 +60,6 @@ function settings(){
   );
 }
 
-
-
-
 function about(){
   ReactDOM.render(
     <React.StrictMode>
@@ -73,6 +73,15 @@ function orders(){
   ReactDOM.render(
     <React.StrictMode>
       <Orders />
+    </React.StrictMode>,
+    document.getElementById('main')
+  );
+}
+
+function logout(){
+  ReactDOM.render(
+    <React.StrictMode>
+      <Logout />
     </React.StrictMode>,
     document.getElementById('main')
   );
