@@ -1,9 +1,14 @@
+//import { render } from "@testing-library/react";
+//import React, { useState } from "react";
+//import InventoryList from "./InventoryList";
+import UploadAndDisplayImage from "./UploadAndDisplay";
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import GenerateTable from "./GenerateTable";
 import axios from "axios";
 import "../css/Store.css";
 //import UpdateInventory from "./UpdateInventory";
+
 
 
 export default function Store(){
