@@ -7,15 +7,14 @@ import croissant from "./pictures/croissant.jpg";
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../css/Cart.css'
-export default function Cart(){
 
+export default function Cart(props){
+    console.log(props.cartItem);
     // retrieve logged in user from backend
     const [loggedInUser, setLoggedInUser] = useState([]);
 
     // initial state of cart should be empty
     const [cart, setCart] = useState([]);
-
-    const [price, totalPrice] = useState(0);
 
     // state for updating quantity and sending to backend
     const [newQuantity, setQuantity] = useState(0);

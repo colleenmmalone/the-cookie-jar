@@ -10,6 +10,7 @@ import defaultImg from "./pictures/default.jpg";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../css/Cart.css'
 import Button from 'react-bootstrap/Button';
+import Cart from './Cart.js';
 //import UpdateInventory from "./UpdateInventory";
 
 
@@ -45,11 +46,13 @@ export default function Store(){
 
     const addToCart = (el) => {
         const exist = basket.find(x => x.itemid === el.itemid); 
+        // checks if item exist, if so increment quantity
         if (exist) {
             setBasket(basket.map((x) => x.itemid === el.itemid ? {...exist, quantity: exist.quantity +1} : x
                 )
             );
         } else {
+        // else add item and set initial quantity to 1
             setBasket([...basket, {...el, quantity: 1}]);
         }
     }
@@ -94,7 +97,8 @@ export default function Store(){
         }
     }
 }
-
+    // pass basket items to cartItem component
+    
     return(
         <>
             <h3 class="pageTitle">Store</h3>
@@ -110,6 +114,8 @@ export default function Store(){
         </>
     )
 }
+
+
 
 
 function updateStore(){
