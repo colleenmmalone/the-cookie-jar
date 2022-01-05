@@ -14,10 +14,10 @@ export default function Store(){
         axios.get(loginsAPI+"whoisloggedin")
             .then(response => response) 
             .then(({data}) => {
-                currentUser(data)
+                currentUser(data)})
             .catch(err => {
                 console.log("Error occured", err);
-            })
+
             });
     }, []);
 
@@ -65,11 +65,6 @@ export default function Store(){
     )
 }
 
-function importPics(r){
-        let pics = {};
-         r.keys().forEach((item, index) => { pics[item.replace('./', '')] = r(item); });
-        return pics
-       }
 
 function updateStore(){
     ReactDOM.render(

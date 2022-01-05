@@ -8,10 +8,10 @@ export default function Settings(){
         axios.get(loginsAPI+"whoisloggedin")
             .then(response => response) 
             .then(({data}) => {
-                currentUser(data)
+                currentUser(data)})
             .catch(err => {
                 console.log("Error occured", err);
-            })
+        
             });
     }, []);
 
