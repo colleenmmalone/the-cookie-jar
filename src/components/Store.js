@@ -23,6 +23,8 @@ export default function Store(){
 
     const [cartPage, setCartPage] = useState(false);
 
+    const [buttonText, setButtonText] = useState("Checkout Cart");
+
     const inventoryUrl = ("http://localhost:8081/inventory");
 
     useEffect(function inventoryFunc() {
@@ -58,7 +60,6 @@ export default function Store(){
             setBasket([...basket, {...el, quantity: 1}]);
         }
     }
-    console.log(basket);
     
     let inventoryItem = item.map(function(el) {
         let imgSrc;
@@ -87,6 +88,7 @@ export default function Store(){
     }) 
 
 
+
   function currentUser(data){
     console.log(data.firstName);
     if(data.firstName === undefined){ //if no one is logged in
@@ -103,14 +105,14 @@ export default function Store(){
     
     return(
         <>
-            <h3 class="pageTitle">Store</h3>
-            <button onClick={() => setCartPage(!cartPage)}>Checkout Cart</button>
+            <h3 class="pageTitle">{Store}</h3>
             <h5 id="thisUser"></h5>
+            <button onClick={() => setCartPage(!cartPage)}>{cartPage ? ("Return to store") :("Checkout")}</button>
             <div id="empBtnDiv"></div>
             <span id="cart">
                 <table class="table table-sm">
                         <tbody>
-                            {setCartPage && <inventoryItem/>}
+                          {cartPage ? (<Cart basket={basket}/>) : (inventoryItem)}
                         </tbody>
                     </table>
             </span>    

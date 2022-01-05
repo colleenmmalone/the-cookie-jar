@@ -9,15 +9,12 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import '../css/Cart.css'
 
 export default function Cart(props){
-    console.log(props.cartItem);
+    console.log(props.basket);
     // retrieve logged in user from backend
     const [loggedInUser, setLoggedInUser] = useState([]);
 
     // initial state of cart should be empty
-    const [cart, setCart] = useState([]);
-
-    //toggle cart to send props down
-    const [cartPage, setCartPage] = useState(false);
+   // const [cart, setCart] = useState([props.basket]);
 
     // state for updating quantity and sending to backend
     const [newQuantity, setQuantity] = useState(0);
@@ -51,74 +48,74 @@ export default function Cart(props){
             })
     }, []);
 
-    const cartAPI = ("http://localhost:8081/ordercontents");
+    // const cartAPI = ("http://localhost:8081/ordercontents");
 
-    useEffect(function effectFunction() {
-        axios.get(cartAPI)
-            .then(response => response) 
-            .then(({data: cart}) => {
-                setCart(cart)
-            });
-    }, []);
+    // useEffect(function effectFunction() {
+    //     axios.get(cartAPI)
+    //         .then(response => response) 
+    //         .then(({data: cart}) => {
+    //             setCart(cart)
+    //         });
+    // }, []);
 
     // cart changes testuser to loggedinUser.id
-    let cartItems = cart.map(function(el) {
+
+    let cartItems = props.basket.map((el) => {
+        console.log(el);
         let imgSrc;
-        if (testUser.orderid === el.orderid) { 
-            if (el.item === "Matcha Cake") {
+            if (el.itemid === 9) {
                 imgSrc = matcha;
-            } else if (el.item === "Chocolate Cake") {
+            } else if (el.itemid === 8) {
                 imgSrc= choc;
-            } else if (el.item === "Croissant") {
+            } else if (el.itemid === 10) {
                 imgSrc = croissant;
             } else {
                 imgSrc = defaultImg;
             }  
 
+            console.log(el.items)
             return (
-
-                <tr key={el.ordercontentsid}>
+                <tr key={el.itemid}>
                 <td >
                 <img className='thumb' src={imgSrc} alt="cakeimage"/>
                 </td>
-                <td>{el.item}</td>
+                <td>{el.items}</td>
                 <td><input onChange={(e) => {setQuantity(e.target.value)}} placeholder={`Current Quantity: ${el.quantity}`} className="cart-quantity-adjust" type="number" ></input>Quantity</td>
                 <td>${el.price * el.quantity}</td>
-                <Button onClick={()=> updateQuantity(el.ordercontentsid, newQuantity)}variant="info">Update</Button>
-                <Button onClick={(e)=> deleteOrderContents(el.ordercontentsid)}variant="danger">Remove</Button>
+                {/* <Button onClick={()=> updateQuantity(el.itemid, newQuantity)}variant="info">Update</Button>
+                <Button onClick={(e)=> deleteOrderContents(el.itemid)}variant="danger">Remove</Button> */}
                 </tr>
             )   
-        }
     }) 
     // testing this function still
-    let cartTotal = cart.reduce((total, currVal) => 
-        total = total + (currVal.quantity *currVal.price), 0)
+    // let cartTotal = cart.reduce((total, currVal) => 
+    //     total = total + (currVal.quantity *currVal.price), 0)
 
     
 
     //update order quantity
-    const updateQuantity = (ordercontentsid, quantity) => {
-        axios.put(`http://localhost:8081/ordercontents/updateordercontents/quantity=${quantity}/${ordercontentsid}`, {
-            quantity: quantity, 
-            ordercontentsid: ordercontentsid
-        }).then((response) => {
-            setCart(cart.map((val) => {
-                return val.ordercontentsid === ordercontentsid ? { ordercontentsid: val.ordercontentsid, orderid: val.orderid, item: val.item, price: val.price, quantity: newQuantity} : val
-            }))
-            console.log(response);
-            alert("Quantity has been updated.");
-        })
-    }
+    // const updateQuantity = (ordercontentsid, quantity) => {
+    //     axios.put(`http://localhost:8081/ordercontents/updateordercontents/quantity=${quantity}/${ordercontentsid}`, {
+    //         quantity: quantity, 
+    //         ordercontentsid: ordercontentsid
+    //     }).then((response) => {
+    //         setCart(cart.map((val) => {
+    //             return val.ordercontentsid === ordercontentsid ? { ordercontentsid: val.ordercontentsid, orderid: val.orderid, item: val.item, price: val.price, quantity: newQuantity} : val
+    //         }))
+    //         console.log(response);
+    //         alert("Quantity has been updated.");
+    //     })
+    // }
 
     // delete order content
-    const deleteOrderContents = (ordercontentsid) => {
-        axios.delete(`http://localhost:8081/ordercontents/deleteordercontents/${ordercontentsid}`)
-        .then((response) => {
-            setCart(cart.filter((val) => {
-                return val.ordercontentsid !== ordercontentsid
-            }))
-        })
-    }
+    // const deleteOrderContents = (ordercontentsid) => {
+    //     axios.delete(`http://localhost:8081/ordercontents/deleteordercontents/${ordercontentsid}`)
+    //     .then((response) => {
+    //         setCart(cart.filter((val) => {
+    //             return val.ordercontentsid !== ordercontentsid
+    //         }))
+    //     })
+    // }
     // onlick function conditionally render
     return(
         <>
@@ -127,8 +124,7 @@ export default function Cart(props){
             <table class="table table-sm">
                 <tbody>
                 <tr>
-                    <button onClick={() => setCartPage(cartPage)}>Cart</button>
-    
+                    {cartItems}
                 </tr>
                 </tbody>
             </table>
@@ -137,7 +133,7 @@ export default function Cart(props){
             <h3>Your total:</h3>
             <div id="totals">
                 <p>Tax: $1.93</p>
-                <p><strong>Total: ${cartTotal}</strong></p>
+                <p><strong>Total: </strong></p>
             </div>
             <br/><br/><br/>
             <button id="pay" onClick={pay}>Checkout</button>
