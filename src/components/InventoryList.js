@@ -1,87 +1,84 @@
 import React from "react";
-import { useEffect,useState} from "react";
+import { useEffect, useState } from "react";
 import axios from 'axios';
-import InventoryById from "./InventoryById";
-import AddInventoryItem from "./AddInventoryItem";
 import ReactDOM from "react-dom";
 //import UpdateInventory from "./UpdateInventory";
 
-export default function  InventoryList () {
-    const url = 'http://localhost:8081/inventory'
-  
-    const [data, setData] = useState([])
-  
-    useEffect(() => {
-      axios.get(url).then(response => setData(response.data))
-    }, [])
-    const renderTable = () => {
-      return data.map(inventory => {
-        return (
-          <tr>
-            <td>{inventory.itemid}</td>
-            <td>{inventory.items}</td>
-            <td>{inventory.quantity}</td> 
-            <td>{inventory.price}</td> 
-            <td>{inventory.storeImage}</td> 
-          </tr>
-        )
-      })
-    }
-    const [id, setId] = useState('');
-   const editItem = event => {
-      event.preventDefault();
-      this.props.history.push(`/inventory/$this.state.id/edit`);
-    }
-    return (
-      <div>
-        <input onChange={event => setId(event.target.value)} type="number" placeholder="enter itemID here"></input>
-        <button onClick= {inventorybyID}>View Inventory by Id</button>
-        <br></br>
-        <button onClick= {editItem}>Update Inventory</button>
-        <button onClick= {additem}>Add item to Inventory</button>
-        <h1 id="title">Inventory Table</h1> 
-        <table id="inventory"> 
-          <thead>
+export default function InventoryList() {
+  const url = 'http://localhost:8081/inventory'
+
+
+
+  axios.get(url)
+    .then(function (response) {
+      displayInventory(response.data);
+    })
+
+
+
+
+
+  /*     const renderTable = () => {
+        return data.map(inventory => {
+          return (
             <tr>
-              <th>ItemID</th>
-              <th>Items</th>
-              <th>Quantity</th>
-              <th>Price</th>
-              <th>StoreImage</th>
+              <td>{inventory.itemid}</td>
+              <td>{inventory.items}</td>
+              <td>{inventory.quantity}</td> 
+              <td>{inventory.price}</td> 
+              <td><img src={require('./pictures/'+inventory.storeImg)} class="thumb"/></td>                      
             </tr>
-          </thead>
-          <tbody>{renderTable()}</tbody>
-        </table>
-      </div>
-    )
+          )
+        })
+      }
   
-  
-  function additem(){
-  ReactDOM.render(
-    <React.StrictMode>
-      <AddInventoryItem />
-    </React.StrictMode>,
-    document.getElementById('inventory')
-  );
+      ReactDOM.render(renderTable, document.getElementById("datahere"));
+   */
+
+
+  function displayInventory(data) {
+
+    console.log(data);
+    const element = (
+      <table class="orderDisplay">
+        <thead>
+          <tr>
+
+            <th>ItemID</th>
+            <th>Items</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>StoreImage</th>
+
+          </tr>
+        </thead>
+        {data.map(d => {
+          <tbody>
+            return(
+            <tr>
+              <td>{d.itemid}</td>
+              <td>{d.items}</td>
+              <td>{d.quantity}</td>
+              <td>{d.price}</td>
+              <td><img src={require('./pictures/' + d.storeImg)} class="thumb" /></td>
+            </tr>
+            )
+          </tbody>
+        })}
+      </table>
+    );
+
+    console.log(element);
+
+  //  ReactDOM.render(element, document.getElementById('datahere'));
+
   }
 
-  function inventorybyID(){
-  ReactDOM.render(
-    <React.StrictMode>
-      <InventoryById id={id} />
-    </React.StrictMode>,
-    document.getElementById('inventory')
-  );
-  }
+  return (
+    <div id="datahere">
+<p>hello</p>
 
-  // function updateInventory(){
-  //   ReactDOM.render(
-  //     <React.StrictMode>
-  //       <UpdateInventory id={id} />
-  //     </React.StrictMode>,
-  //     document.getElementById('inventory')
-  //   );
-   // }
+    </div>
+  )
 
-  
 }

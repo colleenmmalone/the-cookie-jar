@@ -15,26 +15,26 @@ const InventoryById = (id) => {
     axios.get(url).then(response => setData(response.data))
   }, [])
 
-  
+  console.log(data);
     const renderTable = () => {
     
-      return data.map(inventory => {
+     
+       
         return (
           <tr>
-            <td>{inventory.itemID}</td>
-            <td>{inventory.items}</td>
-            <td>{inventory.quantity}</td> 
-            <td>{inventory.price}</td> 
-            <td>{inventory.storeImage}</td> 
+            <td>{data.itemid}</td>
+            <td>{data.items}</td>
+            <td>{data.quantity}</td> 
+            <td>{data.price}</td> 
+            <td><img src={require('./pictures/'+data.storeImg)} class="thumb"/></td> 
           </tr>
         )
-      })
+
     }
     
     return (
       <div>
-        <h1 id="title">Inventory Table</h1>
-        <table id="inventory"> 
+        <table id="inventory" class="orderDisplay"> 
           <thead>
             <tr>
               <th>ItemID</th>

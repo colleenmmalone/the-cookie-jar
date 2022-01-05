@@ -1,6 +1,6 @@
 //import { render } from "@testing-library/react";
 //import React, { useState } from "react";
-//import InventoryList from "./InventoryList";
+import InventoryMaster from "./InventoryMaster";
 import UploadAndDisplayImage from "./UploadAndDisplay";
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
@@ -74,7 +74,7 @@ export default function Store(){
 function updateStore(){
     ReactDOM.render(
         <React.StrictMode>
-         <p>hello</p>
+         <InventoryMaster />
         </React.StrictMode>,
         document.getElementById('main')
       );
