@@ -17,10 +17,9 @@ export default function Home(){
         axios.get(loginsAPI+"whoisloggedin")
             .then(response => response) 
             .then(({data}) => {
-                currentUser(data)
+                currentUser(data)})
             .catch(err => {
                 console.log("Error occured", err);
-            })
             });
     }, []);
 
@@ -51,7 +50,7 @@ export default function Home(){
         
 <br/>
         <img src={logo} className="App-logo" alt="logo" /><br/><br/>
-        <p>Come to the dark side; we have cookies :)</p>
+        <p>Come to the dark side; we have cookies</p>
 
         </>
     )
