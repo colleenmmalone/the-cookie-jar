@@ -10,25 +10,30 @@ import axios from 'axios';
 export default function Home(){
 
     const loginsAPI = ("http://localhost:8081/logins/");    
-    const [email, setEmail] = useState('');
-    const [pswd, setPswd] = useState('');
+    const [emailin, setEmail] = useState('');
+    const [pswdin, setPswd] = useState('');
 
     useEffect(function effectFunction() {
         axios.get(loginsAPI+"whoisloggedin")
             .then(response => response) 
             .then(({data}) => {
-                currentUser(data)
+                currentUser(data)})
             .catch(err => {
                 console.log("Error occured", err);
-            })
             });
     }, []);
 
     function submit(){
-        axios.post(loginsAPI+"login/"+email+"/"+pswd,{})
+
+        axios.post(loginsAPI+"login",{
+            "email": emailin,
+            "pswd": pswdin
+        })
+
             .then(response => response)
             .then(({data}) => {
                 submitted(data)
+                .then(console.log(data))
             .catch(err => {
                 console.log("Error occured", err);
             })
@@ -51,7 +56,7 @@ export default function Home(){
         
 <br/>
         <img src={logo} className="App-logo" alt="logo" /><br/><br/>
-        <p>Come to the dark side; we have cookies :)</p>
+        <p>Come to the dark side; we have cookies</p>
 
         </>
     )
