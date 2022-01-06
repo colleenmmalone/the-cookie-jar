@@ -2,20 +2,18 @@ import React from "react";
 import { useState } from "react";
 import axios from 'axios'; 
 import InventoryList from "./InventoryList";
-import NavBar from "./navBar";
 import ReactDOM from "react-dom";
 
 const AddInventoryItem = () => {
     const [items, setItems] = useState("");
     const [quantity, setQuantity] = useState("");
     const[price, setPrice] = useState("");
-    const[storeImage, setImage] = useState("");
-    const store_img = 'default.jpg';
+    const storeImg = 'default.jpg';
 
    // const postRequestHandler = () => {};
    function addNewItem(){
-    const data = {items, quantity, price, store_img};
-    axios.post('http://localhost:8081/inventory', {data})
+    const postBody = {items, quantity, price, storeImg};
+    axios.post('http://localhost:8081/inventory', {postBody})
     .then(function (response){
         console.log(response);
         if (response.success) {
