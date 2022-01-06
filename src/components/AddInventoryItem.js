@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
+
 import axios from 'axios'; 
 import InventoryList from "./InventoryList";
 import ReactDOM from "react-dom";
@@ -43,9 +44,12 @@ const AddInventoryItem = () => {
 
 
 
+
     return (
         <>
+
         <h3 class="pageTitle">Add Item to Inventory</h3>
+<form>
          <input
             type="text"
             value={itemsin}
@@ -68,17 +72,19 @@ const AddInventoryItem = () => {
         />
 
 
-          <button onClick={addNewItem} type="submit">submit changes</button>   <br/>
 
+          <button onClick={addNewItem} type="submit">submit changes</button>   <br/>
+ </form>
           <div id="addItemRes"></div>   
           <div id="refreshStore"></div> 
 
      </>
     );
-};
+
 
 
 export default AddInventoryItem;
+
 
 
 function backToStore(){
