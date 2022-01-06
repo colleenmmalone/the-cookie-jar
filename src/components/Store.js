@@ -18,12 +18,11 @@ export default function Store(){
     const loginsAPI = ("http://localhost:8081/logins/");
     
     const [item, setItems] = useState([]);
-    const [itemQuantity, setItemQuantity] = useState(0)
+
     const [basket, setBasket] = useState([]);
 
     const [cartPage, setCartPage] = useState(false);
 
-    const [buttonText, setButtonText] = useState("Checkout Cart");
 
     const inventoryUrl = ("http://localhost:8081/inventory");
 
@@ -80,14 +79,11 @@ export default function Store(){
                 </td>
                 <td>{el.items}</td>
                 <td>Price: ${el.price}</td>
-                <td>Quantity: {el.quantity}</td>
-                <Button onClick={()=> addToCart(el)} variant="info">Add To Cart</Button>
+                <Button onClick={()=> {addToCart(el)}} variant="info">Add To Cart</Button>
                 </tr>
             )   
         
     }) 
-
-
 
   function currentUser(data){
     console.log(data.firstName);
@@ -101,7 +97,6 @@ export default function Store(){
         }
     }
 }
-    // pass basket items to cartItem component
     
     return(
         <>

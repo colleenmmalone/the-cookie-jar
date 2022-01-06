@@ -12,12 +12,17 @@ export default function Cart(props){
     console.log(props.basket);
 
     let [basket, setBasket] = useState(props.basket);
+
+    const [total, setTotal] = useState(0);
+
+    
     // retrieve logged in user from backend
     const [loggedInUser, setLoggedInUser] = useState([]);
 
     // initial state of cart should be empty
    // const [cart, setCart] = useState([props.basket]);
 
+    // function to change basket items to match order item keys
     let changeKeys = basket.map(item => {
     return {
       orderid: "",  
@@ -61,13 +66,20 @@ export default function Cart(props){
                 <img className='thumb' src={imgSrc} alt="cakeimage"/>
                 </td>
                 <td>{el.item}</td>
-                <td><input onChange={(e) => {setQuantity(e.target.value)}} placeholder={`Current Quantity: ${el.quantity}`} className="cart-quantity-adjust" type="number" ></input>Quantity</td>
+                <td><input onChange={(e) => {setQuantity(e.target.value)}} 
+                    placeholder={`Current Quantity: ${el.quantity}`}
+                    className="cart-quantity-adjust" type="number" >
+                </input>Quantity</td>
                 <td>${el.price * el.quantity}</td>
                 {/* <Button onClick={()=> updateQuantity(el.itemid, newQuantity)}variant="info">Update</Button> */}
-                {/* <Button onClick={(e)=> deleteOrderContents(el.itemid)}variant="danger">Remove</Button> */}
+                 <Button onClick={(e)=> deleteItem(el.itemid)}variant="danger">Remove</Button>
                 </tr>
             )   
         }) 
+
+    let totalPrice = changeKeys.map(x => x.price * x.quantity).reduce((a,b) => a+b);
+
+   
         // testing this function still
         // let cartTotal = cart.reduce((total, currVal) => 
         //     total = total + (currVal.quantity *currVal.price), 0)
@@ -76,12 +88,6 @@ export default function Cart(props){
             //                     return val.ordercontentsid === ordercontentsid ? { ordercontentsid: val.ordercontentsid, orderid: val.orderid, item: val.item, price: val.price, quantity: newQuantity} : val
             //                 }))
             
-            
-            
-            function pay(){
-                alert("Pay me $1,000 please")
-            }
-
             
        const payOrder = () => {
            axios.post(`http://localhost:8081/orders`, {
@@ -107,9 +113,15 @@ export default function Cart(props){
     //         alert("Quantity has been updated.");
     //     })
     // }
+    const deleteItem = (itemId) => {
+        setBasket(basket.filter((val) => {
+            return val.itemid !== itemId
+            
+        }))
+    }
 
     // delete order content
-    // const deleteOrderContents = (ordercontentsid) => {
+    // const deleteOrderContents = (changeKeys.id) => {
     //     axios.delete(`http://localhost:8081/ordercontents/deleteordercontents/${ordercontentsid}`)
     //     .then((response) => {
     //         setCart(cart.filter((val) => {
@@ -133,8 +145,7 @@ export default function Cart(props){
          <span id="sideBar">
             <h3>Your total:</h3>
             <div id="totals">
-                <p>Tax: $1.93</p>
-                <p><strong>Total: </strong></p>
+                <p><strong>Total: {totalPrice}</strong></p>
             </div>
             <br/><br/><br/>
             <button id="pay" onClick={payOrder}>Checkout</button>
