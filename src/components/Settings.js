@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../css/Store.css";
+import logo from './logo.svg';
 export default function Settings(){
     const loginsAPI = ("http://localhost:8081/logins/");    
 
@@ -33,7 +34,8 @@ export default function Settings(){
         <h4 id="nameP"></h4>
         <hr/>
         <h4 id="emailP"></h4>
-        
+        <br/>
+        <img src={logo} className="settingsLogo" alt="logo"/>
         </>
     )
 }

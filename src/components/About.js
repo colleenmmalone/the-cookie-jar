@@ -1,3 +1,6 @@
+
+import logo from './logo.svg';
+
 export default function About(){
     return(
         <>
@@ -16,7 +19,7 @@ export default function About(){
         <h3>Email</h3>
         <p>admin@thecookiejar.com</p>
 
-
+        <img src={logo} className="settingsLogo" alt="logo"/>
         
         </>
     )
