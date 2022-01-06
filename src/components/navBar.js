@@ -28,6 +28,7 @@ export default function NavBar() {
      <button onClick={logout}>Logout</button>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
      
      <img src={cartImg} id="cartImg" onClick={cart}/>
+
     </div>
   );
 }
