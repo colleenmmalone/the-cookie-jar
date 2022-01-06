@@ -2,53 +2,61 @@ import React from "react";
 import { useState } from "react";
 import axios from 'axios';
 
-import NavBar from "./navBar";
+import InventoryList from './InventoryList';
+import ReactDOM from "react-dom";
 
-export default function UpdateInventory(id) {
+export default function UpdateInventory() {
 
-    const [inventory,setInventory] = useState({
-        item:"",
-        quantity:"",
-        price:"",
-        storeImage:""
-    });
 
-axios.put("http://localhost:8081/inventory/updateinventory" + id["id"], inventory)
-    .then(response => setInventory(response.inventory))
-                                        
-        
-    .catch((error)=>{
+    const [id, setId] = useState(0);
+    console.log("id=" +id);
+    const [quantity, setQuantity] = useState(0);
+    console.log("qty="+ quantity);
+    const [price, setPrice] = useState(0);
+    console.log("price =" + price);
 
-        if (error.response.statut === 404){
-            console.log('Oops! Inventory could not be updated!');
-        }
-        else{
-
-            console.log(error.message);
-        }
-    })
     
+ 
  return (
     <>
+
+      <input type="number" onChange={e => setId(e.target.value)} placeholder="id"/>
+    <input type="number" onChange= {e => setQuantity(e.target.value)} placeholder="Enter new Quantity here"/>
     
-    <input type="number" placeholder="id"/>
-    <input type="number" onChange= {onChangeQuantity} placeholder="Enter new Quantity here"/>
+     <input type="number" onChange= {e => setPrice(e.target.value)} placeholder="Enter new price here" />
+
     
-     <input type="number" onChange= {onChangePrice} placeholder="Enter new price here" />
-     <button onClick={NavBar} type="submit">Update</button>
+     <button onClick={updateCall} type="submit">Update</button> 
     </>
  )
 
- function onChangeQuantity(e){
-    setInventory({...inventory,[e.target.quantity]: e.target.value})
+
+function viewAllInventory() {
+    ReactDOM.render(
+        <React.StrictMode>
+            <InventoryList />
+        </React.StrictMode>,
+        document.getElementById('inventory')
+    );
+}
+function updateCall()  {
+
+    axios.put(`http://localhost:8081/inventory/updateinventory/${id}`, {price: price, quantity:quantity ,  storeImg:""})
+
+                             
+.catch((error)=>{
+    if (error.response.status === 404){
+        console.log('Oops! Inventory could not be updated!');
+    }
+    else{
+        console.log(error.message);
+    }
+    
+})
+};
+
 }
 
-function onChangePrice(e){
-    setInventory({...inventory,[e.target.price]: e.target.value})
-}
 
-    
-    
-}
 
  
