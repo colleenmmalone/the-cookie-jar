@@ -2,6 +2,7 @@
 //add this in the App.js file in the src folder of axios
 
 // Get all inventory items 
+
 async function getAllInventoryItems(){
     try{
         const response = await axios.get('http://localhost:8081/inventory');
@@ -148,3 +149,4 @@ export default function UpdateInventory() {
     
     
 }
+

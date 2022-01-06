@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+
 import axios from 'axios'; 
 import InventoryList from "./InventoryList";
 import ReactDOM from "react-dom";
@@ -32,11 +33,14 @@ const AddInventoryItem = () => {
         else {
             alert("Error occured: Unable to add an item to inventory")
         }
+
     })    
     .catch(function(error){
         console.log(error);
     });
+
 }
+
 
 
     return (
@@ -44,7 +48,9 @@ const AddInventoryItem = () => {
          <input
             type="text"
             value={itemsin}
+
             onChange={(e) => setItems(e.target.value)}
+
             placeholder="Insert Item name here"
         />
         <input
@@ -60,13 +66,16 @@ const AddInventoryItem = () => {
                 placeholder="Insert price here"
         />
 
+
           <button onClick={addNewItem} type="submit">submit changes</button>   <br/>
 
           <div id="addItemRes"></div>   
           <div id="refreshStore"></div> 
+
      </>
     );
 };
+
 
 export default AddInventoryItem;
 

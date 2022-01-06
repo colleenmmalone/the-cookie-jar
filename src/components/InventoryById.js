@@ -1,3 +1,4 @@
+
 import React from "react";
 import { useEffect, useState } from "react";
 //import {useTable} from "react-table";
@@ -82,3 +83,4 @@ const InventoryById = (id) => {
 }
 
 export default InventoryById;
+
