@@ -12,15 +12,11 @@ export default function Cart(props){
     console.log(props.basket);
 
     let [basket, setBasket] = useState(props.basket);
-
-    const [total, setTotal] = useState(0);
-
     
     // retrieve logged in user from backend
     const [loggedInUser, setLoggedInUser] = useState([]);
 
-    // initial state of cart should be empty
-   // const [cart, setCart] = useState([props.basket]);
+    const [quantity, newQuan] = useState(0);
 
     // function to change basket items to match order item keys
     let changeKeys = basket.map(item => {
@@ -49,7 +45,6 @@ export default function Cart(props){
     }, []);
 
     let cartItems = changeKeys.map((el) => {
-        console.log(el);
         let imgSrc;
         if (el.itemid === 9) {
             imgSrc = matcha;
@@ -71,23 +66,13 @@ export default function Cart(props){
                     className="cart-quantity-adjust" type="number" >
                 </input>Quantity</td>
                 <td>${el.price * el.quantity}</td>
-                {/* <Button onClick={()=> updateQuantity(el.itemid, newQuantity)}variant="info">Update</Button> */}
+                 <Button onClick={()=> updateQuantity(el.itemid, newQuan(el.quantity))}variant="info">Update</Button>
                  <Button onClick={(e)=> deleteItem(el.itemid)}variant="danger">Remove</Button>
                 </tr>
             )   
         }) 
 
     let totalPrice = changeKeys.map(x => x.price * x.quantity).reduce((a,b) => a+b);
-
-   
-        // testing this function still
-        // let cartTotal = cart.reduce((total, currVal) => 
-        //     total = total + (currVal.quantity *currVal.price), 0)
-        
-        //    const updateQuantity = setBasket(basket.map((val) => {
-            //                     return val.ordercontentsid === ordercontentsid ? { ordercontentsid: val.ordercontentsid, orderid: val.orderid, item: val.item, price: val.price, quantity: newQuantity} : val
-            //                 }))
-            
             
        const payOrder = () => {
            axios.post(`http://localhost:8081/orders`, {
@@ -97,39 +82,25 @@ export default function Cart(props){
             orderStatus: "PENDING",
             orderContents: changeKeys
            })
-
        } 
+
+       const updateQuantity = (itemid, quantity) => {
+           setBasket(basket.map((val) => {
+                return val.itemid === itemid ? 
+                {itemid: val.itemid,
+                 orderid: val.orderid,
+                 item: val.items,
+                 price: val.price,
+                 quantity: newQuantity
+                } : val
+           }))
+       }
             
-    //update order quantity
-    // const updateQuantity = (ordercontentsid, quantity) => {
-    //     axios.put(`http://localhost:8081/ordercontents/updateordercontents/quantity=${quantity}/${ordercontentsid}`, {
-    //         quantity: quantity, 
-    //         ordercontentsid: ordercontentsid
-    //     }).then((response) => {
-    //         setCart(cart.map((val) => {
-    //             return val.ordercontentsid === ordercontentsid ? { ordercontentsid: val.ordercontentsid, orderid: val.orderid, item: val.item, price: val.price, quantity: newQuantity} : val
-    //         }))
-    //         console.log(response);
-    //         alert("Quantity has been updated.");
-    //     })
-    // }
     const deleteItem = (itemId) => {
         setBasket(basket.filter((val) => {
-            return val.itemid !== itemId
-            
+            return val.itemid !== itemId    
         }))
     }
-
-    // delete order content
-    // const deleteOrderContents = (changeKeys.id) => {
-    //     axios.delete(`http://localhost:8081/ordercontents/deleteordercontents/${ordercontentsid}`)
-    //     .then((response) => {
-    //         setCart(cart.filter((val) => {
-    //             return val.ordercontentsid !== ordercontentsid
-    //         }))
-    //     })
-    // }
-    // onlick function conditionally render
     return(
         <>
         <span id="cart">
@@ -145,7 +116,7 @@ export default function Cart(props){
          <span id="sideBar">
             <h3>Your total:</h3>
             <div id="totals">
-                <p><strong>Total: {totalPrice}</strong></p>
+                <p><strong>Total: ${totalPrice}</strong></p>
             </div>
             <br/><br/><br/>
             <button id="pay" onClick={payOrder}>Checkout</button>
