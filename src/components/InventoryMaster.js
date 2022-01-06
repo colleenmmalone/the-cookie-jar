@@ -5,15 +5,15 @@ import InventoryById from "./InventoryById";
 import InventoryList from "./InventoryList";
 import ReactDOM from "react-dom";
 import AddInventoryItem from "./AddInventoryItem";
-//import UpdateInventory from "./UpdateInventory";
+import UpdateInventory from "./UpdateInventory";
 //            <button onClick={editItem}>Update Inventory</button>
 export default function InventoryMaster() {
 
     const [id, setId] = useState('');
-    const editItem = event => {
-        event.preventDefault();
-        this.props.history.push(`/inventory/$this.state.id/edit`);
-    }
+    // const editItem = event => {
+    //     event.preventDefault();
+    //     this.props.history.push(`/inventory/$this.state.id/edit`);
+    // }
 
    
     return (
@@ -22,8 +22,9 @@ export default function InventoryMaster() {
             <button onClick={inventorybyID}>View Inventory by Id</button>
             <br></br>
             <button onClick={viewAllInventory}>View Inventory</button>
-
+            <button onClick={quantity}>Update Inventory</button>
             <button onClick={additem}>Add item to Inventory</button>
+          
             <h1 class="pageTitle">Inventory</h1>
 
             <div id="inventory">
@@ -62,14 +63,15 @@ export default function InventoryMaster() {
     }
 
 
-    // function updateInventory(){
-    //   ReactDOM.render(
-    //     <React.StrictMode>
-    //       <UpdateInventory id={id} />
-    //     </React.StrictMode>,
-    //     document.getElementById('inventory')
-    //   );
-    // }
+    function quantity(){
+      ReactDOM.render(
+        <React.StrictMode>
+          <UpdateInventory/>
+        </React.StrictMode>,
+        document.getElementById('inventory')
+      );
+      //UpdateInventory id={id}
+    }
 
 
 }

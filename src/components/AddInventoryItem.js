@@ -59,6 +59,6 @@ export default function AddInventoryItem ()  {
      </>
     );
 
-};
+}
 
 
