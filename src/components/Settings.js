@@ -3,7 +3,7 @@ import axios from "axios";
 import "../css/Store.css";
 import logo from './logo.svg';
 export default function Settings(){
-    const loginsAPI = ("http://localhost:8081/logins/");    
+    const loginsAPI = ("http://3.87.75.177:8081/logins/");    
 
     useEffect(function effectFunction() {
         axios.get(loginsAPI+"whoisloggedin")
