@@ -23,7 +23,7 @@ export default function InventoryMaster() {
             <button onClick={viewAllInventory}>View Inventory</button>
 
             <button onClick={additem}>Add item to Inventory</button>
-            <h1 class="pageTitle">Inventory</h1>
+            <br/><br/>
 
             <div id="inventory">
                 <InventoryList />

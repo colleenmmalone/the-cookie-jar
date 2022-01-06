@@ -61,7 +61,10 @@ export default function InventoryList() {
   }
 
   return (
+    <>
+    <h1 class="pageTitle">Inventory</h1>
     <div id="datahere"></div>
+    </>
   )
 
 }

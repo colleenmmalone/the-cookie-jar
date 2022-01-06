@@ -40,7 +40,7 @@ function displayOrders(user, orders){
                    if(user.id === o.customer){
                     return(
                         <tr>
-                        <td>{o.orderID}</td>
+                        <td>{o.orderid}</td>
                         <td>{"$"+o.total}</td>
                         <td>{o.orderStatus}</td>
                         </tr>
