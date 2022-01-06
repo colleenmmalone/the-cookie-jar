@@ -42,7 +42,10 @@
 #navBar button{
   background-color: transparent;
   border: none;
+  color:white;
 }
+
+
 
 #cartImg{
   height: 25px;

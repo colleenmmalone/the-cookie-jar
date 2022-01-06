@@ -26,7 +26,7 @@ export default function NavBar() {
      <button onClick={settings}>Settings</button>&emsp;
      <button onClick={orders}>Orders</button>&emsp;
      <button onClick={logout}>Logout</button>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-     
+
      <img src={cartImg} id="cartImg" onClick={cart}/>
 
     </div>

@@ -1,64 +1,92 @@
 import React from "react";
 import { useState } from "react";
+
 import axios from 'axios'; 
 import InventoryList from "./InventoryList";
-import NavBar from "./navBar";
 import ReactDOM from "react-dom";
 
 const AddInventoryItem = () => {
-    const [items, setItems] = useState("");
-    const [quantity, setQuantity] = useState("");
-    const[price, setPrice] = useState("");
+    const [itemsin, setItems] = useState("");
+    const [quantityin, setQuantity] = useState("");
+    const[pricein, setPrice] = useState("");
     const[storeImage, setImage] = useState("");
-    const store_img = 'default.jpg';
+    const storeImgin = 'default.jpg';
 
    // const postRequestHandler = () => {};
    function addNewItem(){
-    const data = {items, quantity, price, store_img};
-    axios.post('http://localhost:8081/inventory', {data})
+   // const data = {items, quantity, price, storeImg};
+    console.log("inside addNewItem");
+   // console.log(data);
+    axios.post('http://localhost:8081/inventory', {
+        items: itemsin,
+        quantity: quantityin,
+        price: pricein,
+        storeImg: storeImgin
+    },{timeout: 1000})
     .then(function (response){
         console.log(response);
-        if (response.success) {
-            console.log("Your item(s) was successfully saved")
+        if (response.status == 200) {
+            console.log("Your item(s) was successfully saved");
+            document.getElementById("addItemRes").innerHTML = "You have added "+itemsin;
+            {backToStore()};
         }
         else {
-            console.log("Error occured: Unable to add an item to inventory")
+            alert("Error occured: Unable to add an item to inventory")
         }
-    }) 
-    .then(ReactDOM.render({InventoryList}, document.getElementById('inventory'))) 
-    
+
+    })    
     .catch(function(error){
         console.log(error);
     });
+
 }
+
 
 
     return (
         <>
          <input
             type="text"
-            value={items}
+            value={itemsin}
+
             onChange={(e) => setItems(e.target.value)}
+
             placeholder="Insert Item name here"
         />
         <input
                 type="number"
-                value={quantity}
+                value={quantityin}
                 onChange={(e) => setQuantity(e.target.value)}
                 placeholder="Insert quantity here"
         />
         <input
                 type="number"
-                value={price}
+                value={pricein}
                 onChange={(e) => setPrice(e.target.value)}
                 placeholder="Insert price here"
         />
 
-          <button onClick={addNewItem} type="submit">submit changes</button>      
+
+          <button onClick={addNewItem} type="submit">submit changes</button>   <br/>
+
+          <div id="addItemRes"></div>   
+          <div id="refreshStore"></div> 
+
      </>
     );
 };
 
+
 export default AddInventoryItem;
 
 
+function backToStore(){
+const refreshBtn = (
+        <button onClick={renderInv}>Refresh Store</button>
+    )
+    ReactDOM.render(refreshBtn, document.getElementById('refreshStore'));
+}
+
+function renderInv (){
+    ReactDOM.render(<InventoryList />, document.getElementById('inventory'));
+}
