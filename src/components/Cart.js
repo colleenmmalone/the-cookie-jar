@@ -79,6 +79,7 @@ export default function Cart(props){
             customer: loggedInUser.id,
             total: `${totalPrice}`,
             orderDate: `${date}`,
+
             orderStatus: "PENDING",
             orderContents: changeKeys
            })
