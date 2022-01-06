@@ -2,7 +2,6 @@ import React from "react";
 import { useState } from "react";
 import axios from 'axios'; 
 import InventoryList from "./InventoryList";
-import NavBar from "./navBar";
 import ReactDOM from "react-dom";
 
 const AddInventoryItem = () => {
