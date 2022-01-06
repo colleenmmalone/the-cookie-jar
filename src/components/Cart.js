@@ -14,6 +14,7 @@ export default function Cart(props){
     console.log(basket);
     // retrieve logged in user from backend
     const [loggedInUser, setLoggedInUser] = useState([]);
+    var date = new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString()
 
     
 
@@ -77,7 +78,7 @@ export default function Cart(props){
            axios.post(`http://localhost:8081/orders`, {
             customer: loggedInUser.id,
             total: `${totalPrice}`,
-            orderDate: "null",
+            orderDate: `${date}`,
             orderStatus: "PENDING",
             orderContents: changeKeys
            })
