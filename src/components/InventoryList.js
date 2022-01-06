@@ -5,7 +5,7 @@ import ReactDOM from "react-dom";
 //import UpdateInventory from "./UpdateInventory";
 
 export default function InventoryList() {
-  const inventoryAPI = 'http://localhost:8081/inventory'
+  const inventoryAPI = 'http://3.87.75.177:8081/inventory'
 
   axios.get(inventoryAPI)
     .then((response) => {

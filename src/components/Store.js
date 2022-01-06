@@ -20,7 +20,7 @@ import Cart from './Cart.js';
 
 
 export default function Store(){
-    const loginsAPI = ("http://localhost:8081/logins/");
+    const loginsAPI = ("http://3.87.75.177:8081/logins/");
     
     const [item, setItems] = useState([]);
 
@@ -29,7 +29,7 @@ export default function Store(){
     const [cartPage, setCartPage] = useState(false);
 
 
-    const inventoryUrl = ("http://localhost:8081/inventory");
+    const inventoryUrl = ("http://3.87.75.177:8081/inventory");
 
     useEffect(function inventoryFunc() {
         axios.get(inventoryUrl)

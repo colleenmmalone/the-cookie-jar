@@ -41,7 +41,7 @@ function viewAllInventory() {
 }
 function updateCall()  {
 
-    axios.put(`http://localhost:8081/inventory/updateinventory/${id}`, {price: price, quantity:quantity ,  storeImg:""})
+    axios.put(`http://3.87.75.177:8081/inventory/updateinventory/${id}`, {price: price, quantity:quantity ,  storeImg:""})
 
                              
 .catch((error)=>{

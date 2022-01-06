@@ -9,7 +9,7 @@ import axios from 'axios';
 
 export default function Home(){
 
-    const loginsAPI = ("http://localhost:8081/logins/");    
+    const loginsAPI = ("http://3.87.75.177:8081/logins/");    
     const [emailin, setEmail] = useState('');
     const [pswdin, setPswd] = useState('');
 
