@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+
 import axios from 'axios'; 
 import InventoryList from "./InventoryList";
 import NavBar from "./navBar";
@@ -26,19 +27,24 @@ const AddInventoryItem = () => {
         }
     }) 
     .then(ReactDOM.render({InventoryList}, document.getElementById('inventory'))) 
+
     
     .catch(function(error){
         console.log(error);
     });
+
 }
+
 
 
     return (
         <>
          <input
             type="text"
+
             value={items}
             onChange={(e) => setItems(e.target.value)}
+
             placeholder="Insert Item name here"
         />
         <input
@@ -54,10 +60,13 @@ const AddInventoryItem = () => {
                 placeholder="Insert price here"
         />
 
+
           <button onClick={addNewItem} type="submit">submit changes</button>      
+
      </>
     );
 };
+
 
 export default AddInventoryItem;
 
