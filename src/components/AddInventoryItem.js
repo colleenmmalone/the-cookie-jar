@@ -44,7 +44,6 @@ const AddInventoryItem = () => {
 
 
 
-
     return (
         <>
 
@@ -83,9 +82,9 @@ const AddInventoryItem = () => {
 
 
 
-export default AddInventoryItem;
 
 
+    }
 
 function backToStore(){
 const refreshBtn = (
@@ -97,3 +96,6 @@ const refreshBtn = (
 function renderInv (){
     ReactDOM.render(<InventoryList />, document.getElementById('inventory'));
 }
+
+
+export default AddInventoryItem;

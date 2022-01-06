@@ -29,7 +29,6 @@ export default function Home(){
             "email": emailin,
             "pswd": pswdin
         })
-
             .then(response => response)
             .then(({data}) => {
                 submitted(data)
