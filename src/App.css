@@ -20,6 +20,12 @@
   font-size: 70px;
 }
 
+.pageTitle{
+  font-family: "Hearts-Title";
+  font-size: 40px;
+  color:#31aaeb;
+}
+
 #navBar{
   background-color: #61dafb;
   width: 95%;
@@ -108,4 +114,24 @@ td{
 
 body{
   min-height: 100vh;
+}
+
+#regForm{
+  width: fit-content;
+  text-align: right;
+}
+
+.orderDisplay, .orderDisplay tr{
+  border:rgb(201, 37, 105)solid 1px;
+}
+
+.orderDisplay th{
+  background-color: pink;
+  color:rgb(207, 9, 92);
+  padding: 10px 20px;
+}
+
+
+.orderDisplay td{
+  padding: 10px 20px;
 }

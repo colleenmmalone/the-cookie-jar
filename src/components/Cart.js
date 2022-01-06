@@ -1,119 +1,110 @@
 import matcha from './pictures/cake_matcha.jpg';
 import choc from './pictures/cake_chocolate.jpg';
 import React, { useState, useEffect } from "react";
-import axios, { Axios } from "axios";
+import axios from "axios";
 import defaultImg from "./pictures/default.jpg";
 import croissant from "./pictures/croissant.jpg";
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../css/Cart.css'
-export default function Cart(){
 
+export default function Cart(props){
+
+    let [basket, setBasket] = useState(props.basket);
+    console.log(basket);
     // retrieve logged in user from backend
     const [loggedInUser, setLoggedInUser] = useState([]);
+    var date = new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString()
 
-    // initial state of cart should be empty
-    const [cart, setCart] = useState([]);
+    
+
+    // function to change basket items to match order item keys
+    let changeKeys = basket.map(item => {
+    return {
+      orderid: "",  
+      itemid: item.itemid,
+      item: item.items,
+      price : item.price,
+      quantity: item.quantity
+    };
+  });
 
     // state for updating quantity and sending to backend
     const [newQuantity, setQuantity] = useState(0);
 
-    const [total, setTotal] = useState([]);
-
-    const [img, setImg] = useState([]);
-  
-    // test value === this should be the logged in user that we get from the backend 
-    let testUser = 
-        {
-            "orderid": 28,
-            "customer": 1,
-            "total": 0,
-            "order_date": "test",
-            "order_status": "Pending"
-        }
-    // next api would be loggedInUser 
-    //to Andy from Colleen (can send a get logins by id request via Postman to log someone in)
     const whoIsLoggedInAPI = ("http://localhost:8081/logins/whoisloggedin");
 
-    // retrieve logged in user in form of post request
-    const cartAPI = ("http://localhost:8081/ordercontents");
+    console.log(loggedInUser.id);
 
-    useEffect(function effectFunction() {
-        axios.get(cartAPI)
-            .then(response => response) 
-            .then(({data: cart}) => {
-                setCart(cart)
-            });
+    useEffect(function loginEffect() {
+        axios.get(whoIsLoggedInAPI) 
+            .then(response => response)
+            .then(({data: loggedInUser}) => {
+                setLoggedInUser(loggedInUser);
+            })
     }, []);
-    
-   function deleteItem(cartId) {
-        axios.delete(`http://localhost:8081/deleteordercontents/${cartId}`)
-        .then(response => console.log(response))
-        .catch(error => {
-            console.log(error);
-        }, []);
-    }
-    
-    // cart
-    let cartItems = cart.map(function(el) {
+
+    let cartItems = changeKeys.map((el) => {
         let imgSrc;
-        
-        if (testUser.orderid === el.orderid) { 
-            if (el.item === "Matcha Cake") {
-                imgSrc = matcha;
-            } else if (el.item === "Chocolate Cake") {
-                imgSrc= choc;
-            } else if (el.item === "Croissant") {
-                imgSrc = croissant;
-            } else {
-                imgSrc = defaultImg;
-            }
-            
+        if (el.itemid === 9) {
+            imgSrc = matcha;
+        } else if (el.itemid === 8) {
+            imgSrc= choc;
+        } else if (el.itemid === 10) {
+            imgSrc = croissant;
+        } else {
+            imgSrc = defaultImg;
+        }  
             return (
-                <tr key={el.ordercontentsid}>
+                <tr key={el.itemid}>
                 <td >
                 <img className='thumb' src={imgSrc} alt="cakeimage"/>
                 </td>
                 <td>{el.item}</td>
-                <td><input onChange={(e) => {setQuantity(e.target.value)}} className="cart-quantity-adjust" type="number" ></input>Quantity</td>
+                <td><input onChange={(e) => {setQuantity(e.target.value)}} 
+                    placeholder={`Current Quantity: ${el.quantity}`}
+                    className="cart-quantity-adjust" type="number" >
+                </input>Quantity</td>
                 <td>${el.price * el.quantity}</td>
-                <Button onClick={()=> updateQuantity(el.ordercontentsid, el.quantity)}variant="info">Update</Button>
-                <Button onClick={(e)=> deleteItem(el.ordercontentsid)}variant="danger">Remove</Button>
+                 <Button onClick={()=> updateQuantity(el.itemid,newQuantity)}variant="info">Update</Button>
+                 <Button onClick={()=> deleteItem(el.itemid)}variant="danger">Remove</Button>
                 </tr>
             )   
-        }
-    }) 
-    
-    let cartTotal = total.map(function(el) {
-        let totalCost = 0;
-        
-        return (
-            <span id="sideBar">
-            <h3>Your total:</h3>
-            <div id="totals">
-                <p>Tax: $1.93</p>
-                <p><strong>Total: 0</strong></p>
-            </div>
-            <br/><br/><br/>
-            <button id="pay" onClick={pay}>Checkout</button>
-            </span>
-        )
-    })
-    
-    // double check
-    const updateQuantity = (ordercontentsid, quantity) => {
-        axios.put(`http://localhost:8081/ordercontents/updateordercontents/quantity=${quantity}/${ordercontentsid}`, {
-            quantity: quantity, 
-            ordercontentsid: ordercontentsid
-        }).then((response) => {
-            console.log(response);
-        })
+        }) 
+
+    let totalPrice = changeKeys.map(x => x.price * x.quantity).reduce((a,b) => a+b);
+            
+       const payOrder = () => {
+           axios.post(`http://localhost:8081/orders`, {
+            customer: loggedInUser.id,
+            total: `${totalPrice}`,
+            orderDate: `${date}`,
+            orderStatus: "PENDING",
+            orderContents: changeKeys
+           })
+       } 
+
+       const updateQuantity = (itemid, newQuantity) => {
+           setBasket(basket.map((val) => {
+                return val.itemid === itemid ? 
+                {itemid: val.itemid,
+                 orderid: val.orderid,
+                 item: val.items,
+                 price: val.price,
+                 quantity: newQuantity
+                } : val
+           }))
+       }
+            
+    const deleteItem = (itemId) => {
+        setBasket(basket.filter((val) => {
+            return val.itemid !== itemId    
+        }))
     }
-    // onlick function
     return(
         <>
         <span id="cart">
-        <h3>Shopping Cart</h3>
+        <h3 class="pageTitle">Shopping Cart</h3>
             <table class="table table-sm">
                 <tbody>
                 <tr>
@@ -125,17 +116,12 @@ export default function Cart(){
          <span id="sideBar">
             <h3>Your total:</h3>
             <div id="totals">
-                <p>Tax: $1.93</p>
-                <p><strong>Total: 0</strong></p>
+                <p><strong>Total: ${totalPrice}</strong></p>
             </div>
             <br/><br/><br/>
-            <button id="pay" onClick={pay}>Checkout</button>
+            <button id="pay" onClick={payOrder}>Checkout</button>
             </span>
-         {cartTotal}
         </>
     )
 }
 
-function pay(){
-    alert("Pay me $1,000 please")
-}

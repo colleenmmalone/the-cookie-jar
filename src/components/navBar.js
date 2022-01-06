@@ -9,9 +9,9 @@ import Store from "./Store";
 import Home from "./Home";
 import Orders from './Orders';
 import Cart from './Cart';
+import Logout from './Logout';
 
 import cartImg from './pictures/shopping-cart.png'
-
 
 export default function NavBar() {
   return (
@@ -20,12 +20,12 @@ export default function NavBar() {
      <button onClick={store}>Store</button>&emsp;
      <button onClick={about}>About</button>&emsp;
      <button onClick={settings}>Settings</button>&emsp;
-     <button onClick={orders}>Orders</button>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-     <img src={cartImg} id="cartImg" onClick={cart}/>
+     <button onClick={orders}>Orders</button>&emsp;
+     <button onClick={logout}>Logout</button>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+     <img src={cartImg} id="cartImg" alt="cart" onClick={cart}/>
     </div>
   );
 }
-
 
 function home(){
   ReactDOM.render(
@@ -54,9 +54,6 @@ function settings(){
   );
 }
 
-
-
-
 function about(){
   ReactDOM.render(
     <React.StrictMode>
@@ -70,6 +67,15 @@ function orders(){
   ReactDOM.render(
     <React.StrictMode>
       <Orders />
+    </React.StrictMode>,
+    document.getElementById('main')
+  );
+}
+
+function logout(){
+  ReactDOM.render(
+    <React.StrictMode>
+      <Logout />
     </React.StrictMode>,
     document.getElementById('main')
   );
