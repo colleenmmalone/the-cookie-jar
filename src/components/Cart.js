@@ -9,14 +9,13 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import '../css/Cart.css'
 
 export default function Cart(props){
-    console.log(props.basket);
 
     let [basket, setBasket] = useState(props.basket);
-    
+    console.log(basket);
     // retrieve logged in user from backend
     const [loggedInUser, setLoggedInUser] = useState([]);
 
-    const [quantity, newQuan] = useState(0);
+    
 
     // function to change basket items to match order item keys
     let changeKeys = basket.map(item => {
@@ -66,8 +65,8 @@ export default function Cart(props){
                     className="cart-quantity-adjust" type="number" >
                 </input>Quantity</td>
                 <td>${el.price * el.quantity}</td>
-                 <Button onClick={()=> updateQuantity(el.itemid, newQuan(el.quantity))}variant="info">Update</Button>
-                 <Button onClick={(e)=> deleteItem(el.itemid)}variant="danger">Remove</Button>
+                 <Button onClick={()=> updateQuantity(el.itemid,newQuantity)}variant="info">Update</Button>
+                 <Button onClick={()=> deleteItem(el.itemid)}variant="danger">Remove</Button>
                 </tr>
             )   
         }) 
@@ -77,14 +76,14 @@ export default function Cart(props){
        const payOrder = () => {
            axios.post(`http://localhost:8081/orders`, {
             customer: loggedInUser.id,
-            total: 123,
+            total: `${totalPrice}`,
             orderDate: "null",
             orderStatus: "PENDING",
             orderContents: changeKeys
            })
        } 
 
-       const updateQuantity = (itemid, quantity) => {
+       const updateQuantity = (itemid, newQuantity) => {
            setBasket(basket.map((val) => {
                 return val.itemid === itemid ? 
                 {itemid: val.itemid,
