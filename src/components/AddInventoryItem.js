@@ -45,6 +45,7 @@ const AddInventoryItem = () => {
 
     return (
         <>
+        <h3 class="pageTitle">Add Item to Inventory</h3>
          <input
             type="text"
             value={itemsin}

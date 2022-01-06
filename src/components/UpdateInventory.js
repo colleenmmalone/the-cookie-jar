@@ -30,6 +30,7 @@ axios.put("http://localhost:8081/inventory/updateinventory" + id["id"], inventor
     
  return (
     <>
+    
     <input type="number" placeholder="id"/>
     <input type="number" onChange= {onChangeQuantity} placeholder="Enter new Quantity here"/>
     

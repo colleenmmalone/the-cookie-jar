@@ -57,6 +57,7 @@ const InventoryById = (id) => {
     } else {
       return (
         <div>
+          <h1 class="pageTitle">View Inventory by ID</h1>
           <table id="inventory" class="orderDisplay">
             <thead>
               <tr>

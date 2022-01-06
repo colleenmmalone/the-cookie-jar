@@ -95,7 +95,7 @@ export default function Store(){
     if(data.firstName === undefined){ //if no one is logged in
         document.getElementById("thisUser").innerHTML = "";
     }else{
-        document.getElementById("thisUser").innerHTML = data.firstName+ " is logged in!";
+        document.getElementById("thisUser").innerHTML = data.firstName+" "+data.lastName+ " is logged in!";
         console.log(data.status);
         if(data.status === 'EMPLOYEE'){
             isEmployee();
@@ -105,7 +105,7 @@ export default function Store(){
     
     return(
         <>
-            <h3 class="pageTitle">{Store}</h3>
+            <h3 class="pageTitle">Store</h3>
             <h5 id="thisUser"></h5>
             <button onClick={() => setCartPage(!cartPage)}>{cartPage ? ("Return to store") :("Checkout")}</button>
             <div id="empBtnDiv"></div>
