@@ -16,7 +16,7 @@ export default function InventoryList() {
   function displayInventory(data) {
 
     const element = (
-      
+
       <table class="orderDisplay">
         <thead>
           <tr>
@@ -27,41 +27,44 @@ export default function InventoryList() {
             <th>StoreImage</th>
           </tr>
         </thead>
-    
+
         {data.map(d => {
-          if(d.storeImg == undefined){
-            return(
-            <tr>
-              <td>{d.itemid}</td>
-              <td>{d.items}</td>
-              <td>{d.quantity}</td>
-              <td>{d.price}</td>
-              <td><img src={require('./pictures/default.jpg')} class="thumb" /></td>
-            
-               </tr>
+          if (d.storeImg == undefined) {
+            return (
+              <tr>
+                <td>{d.itemid}</td>
+                <td>{d.items}</td>
+                <td>{d.quantity}</td>
+                <td>{d.price}</td>
+                <td><img src={require('./pictures/default.jpg')} class="thumb" /></td>
+
+              </tr>
             )
-            }else{
-              return(
-                <tr>
-                  <td>{d.itemid}</td>
-                  <td>{d.items}</td>
-                  <td>{d.quantity}</td>
-                  <td>{d.price}</td>
-                  <td><img src={require('./pictures/' + d.storeImg)} class="thumb" /></td>
-                
-                   </tr>
-                )
-            }
+          } else {
+            return (
+              <tr>
+                <td>{d.itemid}</td>
+                <td>{d.items}</td>
+                <td>{d.quantity}</td>
+                <td>{d.price}</td>
+                <td><img src={require('./pictures/' + d.storeImg)} class="thumb" /></td>
+
+              </tr>
+            )
+          }
         })}
-      </table>      
+      </table>
     );
 
-  ReactDOM.render(element, document.getElementById('datahere'));
+    ReactDOM.render(element, document.getElementById('datahere'));
 
   }
 
   return (
+    <>
+    <h1 class="pageTitle">Inventory</h1>
     <div id="datahere"></div>
+    </>
   )
 
 }

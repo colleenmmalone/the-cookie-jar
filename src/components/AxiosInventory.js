@@ -1,6 +1,7 @@
 // import axios from "axios";
 // import React from "react";
 
+
 // export default function AddNewItem(){
 //     const data = {items, quantity, price, storeImg};
 
@@ -73,6 +74,7 @@
 //                   });
 //             }
 //           //  console.log(response);
+
              
 //         catch (error){
 //             console.error(error);
@@ -196,5 +198,6 @@
 //     }
     
     
-    
+
 // }
+

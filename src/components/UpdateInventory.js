@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import axios from 'axios';
+
 import InventoryList from './InventoryList';
 import ReactDOM from "react-dom";
 
@@ -13,14 +14,17 @@ export default function UpdateInventory() {
     console.log("qty="+ quantity);
     const [price, setPrice] = useState(0);
     console.log("price =" + price);
+
     
  
  return (
     <>
+
       <input type="number" onChange={e => setId(e.target.value)} placeholder="id"/>
     <input type="number" onChange= {e => setQuantity(e.target.value)} placeholder="Enter new Quantity here"/>
     
      <input type="number" onChange= {e => setPrice(e.target.value)} placeholder="Enter new price here" />
+
     
      <button onClick={updateCall} type="submit">Update</button> 
     </>
@@ -56,4 +60,3 @@ function updateCall()  {
 
 
  
-
