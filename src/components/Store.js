@@ -29,7 +29,7 @@ export default function Store(){
     const [cartPage, setCartPage] = useState(false);
 
 
-    const inventoryUrl = ("http://3.87.75.177:8081/inventory");
+    const inventoryUrl = ("http://3.87.75.177:8081/inventory/");
 
     useEffect(function inventoryFunc() {
         axios.get(inventoryUrl)
@@ -66,9 +66,10 @@ export default function Store(){
     }
     
     let inventoryItem = item.map(function(el) {
+        console.log(el.storeImg);
         let imgSrc;
         // console.log(el);
-            if (el.items === "matcha cake") {
+/*             if (el.items === "matcha cake") {
                 imgSrc = matcha;
             } else if (el.items === "chocolate cake") {
                 imgSrc= choc;
@@ -76,11 +77,11 @@ export default function Store(){
                 imgSrc = croissant;
             } else {
                 imgSrc = defaultImg;
-            }
+            } */
             return (
                 <tr key={el.itemid}>
                 <td>
-                <img className='thumb' src={imgSrc} alt="cakeimage"/>
+                <img className='thumb' src={require('./pictures/'+el.storeImg)} alt="cakeimage"/>
                 </td>
                 <td>{el.items}</td>
                 <td>Price: ${el.price}</td>
