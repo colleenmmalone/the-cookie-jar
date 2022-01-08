@@ -78,6 +78,12 @@ export default function Store(){
             } else {
                 imgSrc = defaultImg;
             } */
+        
+            //if statement here about being CS or EMP
+            const isCS = (
+                <Button onClick={()=> {addToCart(el)}} variant="info">Add To Cart</Button>
+            );
+
             return (
                 <tr key={el.itemid}>
                 <td>
@@ -85,7 +91,7 @@ export default function Store(){
                 </td>
                 <td>{el.items}</td>
                 <td>${el.price}</td>
-                <Button onClick={()=> {addToCart(el)}} variant="info">Add To Cart</Button>
+                <td>{isCS}</td>
                 </tr>
             )   
         
@@ -96,10 +102,11 @@ export default function Store(){
     if(data.firstName === undefined){ //if no one is logged in
         document.getElementById("thisUser").innerHTML = "";
     }else{
-        document.getElementById("thisUser").innerHTML = data.firstName+" "+data.lastName+ " is logged in!";
         console.log(data.status);
         if(data.status === 'EMPLOYEE'){
             isEmployee();
+        }else{
+            isCustomer();
         }
     }
 }
@@ -108,7 +115,6 @@ export default function Store(){
         <>
             <h3 class="pageTitle">Store</h3>
             <h5 id="thisUser"></h5>
-            <button onClick={() => setCartPage(!cartPage)}>{cartPage ? ("Return to store") :("Checkout")}</button>
             <div id="empBtnDiv"></div>
             <span id="cart">
                 <table class="table table-sm">
@@ -135,6 +141,13 @@ function updateStore(){
 function isEmployee(){
     ReactDOM.render(
         <button id="emp" onClick={updateStore}>Update Inventory</button>,
+        document.getElementById('empBtnDiv')
+    );
+}
+
+function isCustomer(){
+    ReactDOM.render(
+        <button onClick={() => setCartPage(!cartPage)}>{cartPage ? ("Return to store") :("Checkout")}</button>,
         document.getElementById('empBtnDiv')
     );
 }
