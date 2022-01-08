@@ -77,6 +77,7 @@ function didItWork(data){
     if (data.firstName === undefined){
         document.getElementById("infoBar").innerHTML = "This email is already associated with an account<br/>Please login"
     }else{
+        document.getElementById("loggedInUser").innerHTML = data.firstName+" "+data.lastName;
         ReactDOM.render(
             <React.StrictMode>
               <Store />

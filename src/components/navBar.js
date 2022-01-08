@@ -3,8 +3,7 @@ import React from 'react';
 
 import "../App.css"
 
-import Settings from "./Settings"
-import About from "./About";
+import Contact from "./Contact";
 import Store from "./Store";
 import Home from "./Home";
 import Orders from './Orders';
@@ -22,11 +21,11 @@ export default function NavBar() {
     <div className="App">
      <button onClick={home}>Home</button>&emsp;
      <button onClick={store}>Store</button>&emsp;
-     <button onClick={about}>About</button>&emsp;
-     <button onClick={settings}>Settings</button>&emsp;
+     <button onClick={contact}>Contact</button>&emsp;
      <button onClick={orders}>Orders</button>&emsp;
-     <button onClick={logout}>Logout</button>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-
+     <button onClick={logout}>Logout</button>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+     <span id="loggedInUser">Guest</span>&emsp;
+   
      <img src={cartImg} id="cartImg" onClick={cart}/>
 
     </div>
@@ -51,19 +50,10 @@ function store(){
   );
 }
 
-function settings(){
+function contact(){
   ReactDOM.render(
     <React.StrictMode>
-      <Settings />
-    </React.StrictMode>,
-    document.getElementById('main')
-  );
-}
-
-function about(){
-  ReactDOM.render(
-    <React.StrictMode>
-      <About />
+      <Contact/>
     </React.StrictMode>,
     document.getElementById('main')
   );
