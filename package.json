@@ -15,10 +15,10 @@
     "web-vitals": "^2.1.2"
   },
   "headers": {
-      "Access-Control-Allow-Headers"': "Content-Type",
-      "Access-Control-Allow-Origin"': "*",
+      "Access-Control-Allow-Headers": "Content-Type",
+      "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "OPTIONS,PUT",
-      "Content-Type": "application/json",
+      "Content-Type": "application/json"
   },
   "scripts": {
     "start": "react-scripts start",
