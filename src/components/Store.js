@@ -84,7 +84,7 @@ export default function Store(){
                 <img className='thumb' src={require('./pictures/'+el.storeImg)} alt="cakeimage"/>
                 </td>
                 <td>{el.items}</td>
-                <td>Price: ${el.price}</td>
+                <td>${el.price}</td>
                 <Button onClick={()=> {addToCart(el)}} variant="info">Add To Cart</Button>
                 </tr>
             )   
