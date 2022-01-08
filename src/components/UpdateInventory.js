@@ -10,10 +10,10 @@ export default function UpdateInventory() {
 
     const [id, setId] = useState(0);
     console.log("id=" +id);
-    const [quantity, setQuantity] = useState(0);
-    console.log("qty="+ quantity);
-    const [price, setPrice] = useState(0);
-    console.log("price =" + price);
+    const [quantityin, setQuantity] = useState(0);
+    console.log("qty="+ quantityin);
+    const [pricein, setPrice] = useState(0);
+    console.log("price =" + pricein);
 
     
  
@@ -41,7 +41,7 @@ function viewAllInventory() {
 }
 function updateCall()  {
 
-    axios.put(`http://3.87.75.177:8081/inventory/updateinventory/${id}`, {price: price, quantity:quantity ,  storeImg:""})
+    axios.put(`http://3.87.75.177:8081/inventory/updateinventory/${id}`, {price: pricein, quantity: quantityin})
 
                              
 .catch((error)=>{
