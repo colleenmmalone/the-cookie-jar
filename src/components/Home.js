@@ -69,22 +69,12 @@ function register(){
       );
 }
 
-function userIsLoggedIn(){
-    ReactDOM.render(
-        <React.StrictMode>
-          <Store />
-        </React.StrictMode>,
-        document.getElementById('main')
-      );
-}
-
-
 function currentUser(data){
     console.log(data.firstName);
     if(data.firstName === undefined){ //if no one is logged in
         document.getElementById("thisUser").innerHTML = "";
     }else{
-        document.getElementById("thisUser").innerHTML = data.firstName+ " is logged in!";
+        document.getElementById("thisUser").innerHTML = data.firstName+ " is already logged in!";
     }
 }
 
@@ -93,9 +83,16 @@ function submitted(data){
     if(data.firstName === undefined){
         document.getElementById("thisUser").innerHTML = "login credentials are invalid. Please try again";
     }else{
-        
-        userIsLoggedIn();
+        document.getElementById("loggedInUser").innerHTML = data.firstName+" "+data.lastName;
+    
+        //userIsLoggedIn();
+        ReactDOM.render(
+            <React.StrictMode>
+              <Store />
+            </React.StrictMode>,
+            document.getElementById('main')
+          );
 
-       // document.getElementById("thisUser").innerHTML = data.firstName+ " is already logged in!";
+       // 
     }
 }
