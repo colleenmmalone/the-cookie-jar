@@ -26,12 +26,12 @@ const InventoryById = (id) => {
   console.log("data");
   console.log(data);
   console.log(data.itemid + " dada");
-  if (data.itemid == undefined) {
+  if (data.itemid === undefined) {
     return (
       <p>no data found for this item number</p>
     )
   } else {
-    if (data.storeImg == undefined) {
+    if (data.storeImg === undefined) {
       return (
         <div>
           <table id="inventory" class="orderDisplay">
@@ -49,7 +49,7 @@ const InventoryById = (id) => {
               <td>{data.items}</td>
               <td>{data.quantity}</td>
               <td>{data.price}</td>
-              <td><img src={require('./pictures/default.jpg')} class="thumb" /></td>
+              <td><img src={require('./pictures/default.jpg')} alt="default cake" class="thumb" /></td>
             </tr>
           </table>
         </div>
@@ -73,7 +73,7 @@ const InventoryById = (id) => {
               <td>{data.items}</td>
               <td>{data.quantity}</td>
               <td>{data.price}</td>
-              <td><img src={require('./pictures/' + data.storeImg)} class="thumb" /></td>
+              <td><img src={require('./pictures/' + data.storeImg)} alt="cake" class="thumb" /></td>
             </tr>
           </table>
         </div>

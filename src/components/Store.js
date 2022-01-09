@@ -1,53 +1,37 @@
-//import { render } from "@testing-library/react";
-//import React, { useState } from "react";
-import InventoryMaster from "./InventoryMaster";
-import UploadAndDisplayImage from "./UploadAndDisplay";
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
-import GenerateTable from "./GenerateTable";
 import axios from "axios";
+import Button from 'react-bootstrap/Button';
+
+import InventoryMaster from "./InventoryMaster";
+import Cart from './Cart.js';
+
 import "../css/Store.css";
-import matcha from './pictures/cake_matcha.jpg';
-import croissant from "./pictures/croissant.jpg";
-import choc from './pictures/cake_chocolate.jpg';
-import defaultImg from "./pictures/default.jpg";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../css/Cart.css'
-import Button from 'react-bootstrap/Button';
-import Cart from './Cart.js';
-//import UpdateInventory from "./UpdateInventory";
-
-
 
 export default function Store(){
     const loginsAPI = ("http://localhost:8081/logins/");
+    const inventoryUrl = ("http://localhost:8081/inventory/");
     
     const [item, setItems] = useState([]);
-
     const [basket, setBasket] = useState([]);
-
     const [cartPage, setCartPage] = useState(false);
-
     const [status, setStatus] = useState(""); 
-
-
-    const inventoryUrl = ("http://localhost:8081/inventory/");
 
     useEffect(function inventoryFunc() {
         axios.get(inventoryUrl)
-            .then(response=> response)
-            .then(({data: item}) => {
+            .then(response => response)
+            .then(({ data: item }) => {
                 setItems(item)
-            }); 
+            });
     }, []);
- 
 
     // render inventory items
     useEffect(function effectFunction() {
-        axios.get(loginsAPI+"whoisloggedin")
-            .then(response => response) 
-            .then(({data}) => {
-                currentUser(data)})
+        axios.get(loginsAPI + "whoisloggedin")
+            .then(response => response)
+            .then(({ data }) => { currentUser(data) })
             .catch(err => {
                 console.log("Error occured", err);
 
@@ -55,15 +39,15 @@ export default function Store(){
     }, []);
 
     const addToCart = (el) => {
-        const exist = basket.find(x => x.itemid === el.itemid); 
+        const exist = basket.find(x => x.itemid === el.itemid);
         // checks if item exist, if so increment quantity
         if (exist) {
-            setBasket(basket.map((x) => x.itemid === el.itemid ? {...exist, quantity: exist.quantity +1} : x
-                )
+            setBasket(basket.map((x) => x.itemid === el.itemid ? { ...exist, quantity: exist.quantity + 1 } : x
+            )
             );
         } else {
-        // else add item and set initial quantity to 1
-            setBasket([...basket, {...el, quantity: 1}]);
+            // else add item and set initial quantity to 1
+            setBasket([...basket, { ...el, quantity: 1 }]);
         }
     }
     
@@ -81,12 +65,12 @@ export default function Store(){
             } */
             return (
                 <tr key={el.itemid}>
-                <td>
-                <img className='thumb' src={require('./pictures/'+el.storeImg)} alt="cakeimage"/>
+                <td className="store-table-data">
+                    <img className='thumb' src={require('./pictures/' + el.storeImg)} alt="cakeimage" />
                 </td>
-                <td>{el.items}</td>
-                <td>${el.price}</td>
-                {status === "CUSTOMER" ? <Button onClick={()=> {addToCart(el)}} variant="info">Add To Cart</Button> : ""}
+                <td className="store-table-data">{el.items}</td>
+                <td className="store-table-data">${el.price}</td>
+                {status === "CUSTOMER" ? <Button className="add-to-cart-button" onClick={()=> {addToCart(el)}} variant="info">Add To Cart</Button> : ""}
                 </tr>
             )   
         
@@ -105,7 +89,6 @@ export default function Store(){
         }
     }
 }
-    
     return(
         <>
             <h3 class="pageTitle">Store</h3>
@@ -114,29 +97,41 @@ export default function Store(){
             <div id="empBtnDiv"></div>
             <span id="cart">
                 <table class="table table-sm">
-                        <tbody>
-                          {cartPage ? (<Cart basket={basket}/>) : (inventoryItem)}
-                        </tbody>
-                    </table>
-            </span>    
+                    <tbody>
+                        {cartPage ? (<Cart basket={basket} />) : (inventoryItem)}
+                    </tbody>
+                </table>
+            </span>
         </>
     )
 }
 
-
-function updateStore(){
+function updateStore() {
     ReactDOM.render(
         <React.StrictMode>
-         <InventoryMaster />
+            <InventoryMaster />
         </React.StrictMode>,
         document.getElementById('main')
-      );
+    );
 }
 
-
-function isEmployee(){
+function isEmployee() {
     ReactDOM.render(
         <button id="emp" onClick={updateStore}>Update Inventory</button>,
         document.getElementById('empBtnDiv')
     );
 }
+
+// function currentUser(data) {
+//     console.log(data.firstName);
+//     if (data.firstName === undefined) { //if no one is logged in
+//         document.getElementById("thisUser").innerHTML = "";
+//     } else {
+//         console.log(data.status);
+//         // setUSerStatus = data.status;
+//         if (data.status == 'EMPLOYEE') {
+//             isEmployee();
+
+//         }
+//     }
+// }
