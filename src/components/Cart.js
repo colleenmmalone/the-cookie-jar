@@ -11,7 +11,6 @@ import '../css/Cart.css'
 export default function Cart(props){
 
     let [basket, setBasket] = useState(props.basket);
-    console.log(basket);
     // retrieve logged in user from backend
     const [loggedInUser, setLoggedInUser] = useState([]);
     var date = new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString()
