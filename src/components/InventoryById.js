@@ -13,7 +13,7 @@ const InventoryById = (id) => {
   const [data, setData] = useState({});
 
 
-  const inventoryAPI = 'http://3.87.75.177:8081/inventory/'
+  const inventoryAPI = 'http://localhost:8081/inventory/'
   const newAPI = inventoryAPI + id.id;
 
 

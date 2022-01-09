@@ -20,7 +20,7 @@ import Cart from './Cart.js';
 
 
 export default function Store(){
-    const loginsAPI = ("http://3.87.75.177:8081/logins/");
+    const loginsAPI = ("http://localhost:8081/logins/");
     
     const [item, setItems] = useState([]);
 
@@ -28,8 +28,10 @@ export default function Store(){
 
     const [cartPage, setCartPage] = useState(false);
 
+    const [status, setStatus] = useState(""); 
 
-    const inventoryUrl = ("http://3.87.75.177:8081/inventory/");
+
+    const inventoryUrl = ("http://localhost:8081/inventory/");
 
     useEffect(function inventoryFunc() {
         axios.get(inventoryUrl)
@@ -66,7 +68,6 @@ export default function Store(){
     }
     
     let inventoryItem = item.map(function(el) {
-        console.log(el.storeImg);
         let imgSrc;
         // console.log(el);
 /*             if (el.items === "matcha cake") {
@@ -84,8 +85,8 @@ export default function Store(){
                 <img className='thumb' src={require('./pictures/'+el.storeImg)} alt="cakeimage"/>
                 </td>
                 <td>{el.items}</td>
-                <td>Price: ${el.price}</td>
-                <Button onClick={()=> {addToCart(el)}} variant="info">Add To Cart</Button>
+                <td>${el.price}</td>
+                {status === "CUSTOMER" ? <Button onClick={()=> {addToCart(el)}} variant="info">Add To Cart</Button> : ""}
                 </tr>
             )   
         
@@ -93,6 +94,7 @@ export default function Store(){
 
   function currentUser(data){
     console.log(data.firstName);
+    setStatus(data.status);
     if(data.firstName === undefined){ //if no one is logged in
         document.getElementById("thisUser").innerHTML = "";
     }else{
@@ -108,7 +110,7 @@ export default function Store(){
         <>
             <h3 class="pageTitle">Store</h3>
             <h5 id="thisUser"></h5>
-            <button onClick={() => setCartPage(!cartPage)}>{cartPage ? ("Return to store") :("Checkout")}</button>
+            {status === "CUSTOMER" ?<button onClick={() => setCartPage(!cartPage)}>{cartPage ? ("Return to store") :("Checkout")}</button>: ""}
             <div id="empBtnDiv"></div>
             <span id="cart">
                 <table class="table table-sm">
