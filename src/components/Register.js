@@ -5,7 +5,7 @@ import Home from './Home';
 import Store from './Store';
 
 export default function Register(){
-    const loginsAPI = ("http://3.87.75.177:8081/logins/");  
+    const loginsAPI = ("http://localhost:/logins/");  
     const [name1, setFirstName] = useState('');
     const [name2, setLastName] = useState('');
     const [emailin, setEmail] = useState('');

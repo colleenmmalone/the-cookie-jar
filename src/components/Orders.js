@@ -5,8 +5,8 @@ import ReactDOM from "react-dom";
 
 
 export default function Orders() {
-    const loginsAPI = ("http://3.87.75.177:8081/logins/");
-    const ordersAPI = ("http://3.87.75.177:8081/orders/");
+    const loginsAPI = ("http://localhost:8081/logins/");
+    const ordersAPI = ("http://localhost:8081/orders/");
 
     axios.get(loginsAPI+"whoisloggedin")
         .then(function (response){

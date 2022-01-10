@@ -18,7 +18,7 @@ function addNewItem(){
    // const data = {items, quantity, price, storeImg};
     console.log("inside addNewItem");
    // console.log(data);
-    axios.post('http://3.87.75.177:8081/inventory', {
+    axios.post('http://localhost:8081/inventory', {
         items: itemsin,
         quantity: quantityin,
         price: pricein,

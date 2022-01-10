@@ -11,7 +11,6 @@ import '../css/Cart.css'
 export default function Cart(props){
 
     let [basket, setBasket] = useState(props.basket);
-    console.log(basket);
     // retrieve logged in user from backend
     const [loggedInUser, setLoggedInUser] = useState([]);
     var date = new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString()
@@ -32,7 +31,7 @@ export default function Cart(props){
     // state for updating quantity and sending to backend
     const [newQuantity, setQuantity] = useState(0);
 
-    const whoIsLoggedInAPI = ("http://3.87.75.177:8081/logins/whoisloggedin");
+    const whoIsLoggedInAPI = ("http://localhost:8081/logins/whoisloggedin");
 
     console.log(loggedInUser.id);
 
@@ -75,7 +74,7 @@ export default function Cart(props){
     let totalPrice = changeKeys.map(x => x.price * x.quantity).reduce((a,b) => a+b);
             
        const payOrder = () => {
-           axios.post(`http://3.87.75.177:8081/orders`, {
+           axios.post(`http://localhost:8081/orders`, {
             customer: loggedInUser.id,
             total: `${totalPrice}`,
             orderDate: `${date}`,

@@ -10,14 +10,14 @@ import "../css/Store.css";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../css/Cart.css'
 
-export default function Store() {
-    const loginsAPI = ("http://3.87.75.177:8081/logins/");
-    const inventoryUrl = ("http://3.87.75.177:8081/inventory/");
-
+export default function Store(){
+    const loginsAPI = ("http://localhost:8081/logins/");
+    const inventoryUrl = ("http://localhost:8081/inventory/");
+    
     const [item, setItems] = useState([]);
     const [basket, setBasket] = useState([]);
     const [cartPage, setCartPage] = useState(false);
-    const [userStatus, setUserStatus] = useState("");
+    const [status, setStatus] = useState(""); 
 
     useEffect(function inventoryFunc() {
         axios.get(inventoryUrl)
@@ -32,7 +32,6 @@ export default function Store() {
         axios.get(loginsAPI + "whoisloggedin")
             .then(response => response)
             .then(({ data }) => { currentUser(data) })
-            .then(({ data }) => { setUserStatus = data.status; })
             .catch(err => {
                 console.log("Error occured", err);
 
@@ -51,39 +50,51 @@ export default function Store() {
             setBasket([...basket, { ...el, quantity: 1 }]);
         }
     }
-
-    let inventoryItem = item.map(function (el) {
-        console.log(userStatus);
-        //if statement here about being CS or EMP
-        //colleen could not get this to render right
-        const isCS = () => {
-            //           if(userStatus === 'EMPLOYEE'){
-            //                  return(<></>);
-            //              }else{
-            //          return(<td><Button onClick={()=> {addToCart(el)}} variant="info">Add To Cart</Button></td>);
-        }
-        //       }
-
-        return (
-            <tr key={el.itemid}>
-                <td>
+    
+    let inventoryItem = item.map(function(el) {
+        let imgSrc;
+        // console.log(el);
+/*             if (el.items === "matcha cake") {
+                imgSrc = matcha;
+            } else if (el.items === "chocolate cake") {
+                imgSrc= choc;
+            } else if (el.items=== "croissant") {
+                imgSrc = croissant;
+            } else {
+                imgSrc = defaultImg;
+            } */
+            return (
+                <tr key={el.itemid}>
+                <td className="store-table-data">
                     <img className='thumb' src={require('./pictures/' + el.storeImg)} alt="cakeimage" />
                 </td>
-                <td>{el.items}</td>
-                <td>${el.price}</td>
-                <td><Button onClick={() => { addToCart(el) }} variant="info">Add To Cart</Button></td>
-            </tr>
-        )
+                <td className="store-table-data">{el.items}</td>
+                <td className="store-table-data">${el.price}</td>
+                {status === "CUSTOMER" ? <Button className="add-to-cart-button" onClick={()=> {addToCart(el)}} variant="info">Add To Cart</Button> : ""}
+                </tr>
+            )   
+        
+    }) 
 
-    })
-
-    return (
+  function currentUser(data){
+    console.log(data.firstName);
+    setStatus(data.status);
+    if(data.firstName === undefined){ //if no one is logged in
+        document.getElementById("thisUser").innerHTML = "";
+    }else{
+        document.getElementById("thisUser").innerHTML = data.firstName+" "+data.lastName+ " is logged in!";
+        console.log(data.status);
+        if(data.status === 'EMPLOYEE'){
+            isEmployee();
+        }
+    }
+}
+    return(
         <>
             <h3 class="pageTitle">Store</h3>
-            <div id="empBtnDiv">
-                <button onClick={() => setCartPage(!cartPage)}>{cartPage ? ("Return to store") : ("Checkout")}</button><br />
-            </div>
-            <br />
+            <h5 id="thisUser"></h5>
+            {status === "CUSTOMER" ?<button onClick={() => setCartPage(!cartPage)}>{cartPage ? ("Return to store") :("Checkout")}</button>: ""}
+            <div id="empBtnDiv"></div>
             <span id="cart">
                 <table class="table table-sm">
                     <tbody>
@@ -111,16 +122,16 @@ function isEmployee() {
     );
 }
 
-function currentUser(data) {
-    console.log(data.firstName);
-    if (data.firstName === undefined) { //if no one is logged in
-        document.getElementById("thisUser").innerHTML = "";
-    } else {
-        console.log(data.status);
-        // setUSerStatus = data.status;
-        if (data.status == 'EMPLOYEE') {
-            isEmployee();
+// function currentUser(data) {
+//     console.log(data.firstName);
+//     if (data.firstName === undefined) { //if no one is logged in
+//         document.getElementById("thisUser").innerHTML = "";
+//     } else {
+//         console.log(data.status);
+//         // setUSerStatus = data.status;
+//         if (data.status == 'EMPLOYEE') {
+//             isEmployee();
 
-        }
-    }
-}
+//         }
+//     }
+// }
