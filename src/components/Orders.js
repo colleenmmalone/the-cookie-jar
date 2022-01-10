@@ -30,11 +30,12 @@ export default function Orders() {
     // tells component to do something after selecting
     const updateStatus = function(id, status) {
         axios.put(`http://localhost:8081/orders/updateorder/status=${status}/${id}`)
-            .then(response => setItemStatus(response.data))
+            .then(response => console.log(response))
+            .then(setItemStatus(status))
             .catch(err => {
                 console.log("Error updating status", err);
             })
-    }            
+    }      
             
     function displayOrders(user, orders){
         console.log(user);
@@ -72,12 +73,11 @@ export default function Orders() {
                             <td>{"$"+o.total}</td>
                             <td>{o.orderStatus}</td>
                             <td>
-                                <select name="itemStatus" onChange={(e) => updateStatus(o.orderid, e.target.value)}>
+                                <select autocomplete="off" name="itemStatus" onChange={(e) => updateStatus(o.orderid, e.target.value)}>
                                     <option value="" disabled selected>Update status...</option>
                                     <option value="Pending">Pending</option>
                                     <option value="Preparing">Preparing</option>
                                     <option value="Delivered">Delivered</option>
-
                                 </select>
                             </td>
                             </tr> : ""
