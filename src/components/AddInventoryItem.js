@@ -72,7 +72,7 @@ function addNewItem(){
 
 
 
-          <button onClick={addNewItem} type="submit">submit changes</button>   <br/>
+          <button className="btn btn-info" id="update-inv" onClick={addNewItem} type="submit">submit changes</button>   <br/>
  
           <div id="addItemRes"></div>   
           <div id="refreshStore"></div> 
@@ -84,7 +84,7 @@ function addNewItem(){
 
 function backToStore(){
 const refreshBtn = (
-        <button onClick={renderInv}>Refresh Store</button>
+        <button onClick={renderInv}className="btn btn-info" id="update-inv" >Refresh Store</button>
     )
     ReactDOM.render(refreshBtn, document.getElementById('refreshStore'));
 }

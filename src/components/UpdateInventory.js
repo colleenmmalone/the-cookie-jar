@@ -4,8 +4,9 @@ import axios from 'axios';
 
 import InventoryList from './InventoryList';
 import ReactDOM from "react-dom";
+import { isConstructorDeclaration } from "typescript";
 
-export default function UpdateInventory() {
+export default function UpdateInventory(props) {
 
 
     const [id, setId] = useState(0);
@@ -15,18 +16,17 @@ export default function UpdateInventory() {
     const [pricein, setPrice] = useState(0);
     console.log("price =" + pricein);
 
+
     
  
  return (
     <>
-
-      <input type="number" onChange={e => setId(e.target.value)} placeholder="id"/>
-    <input type="number" onChange= {e => setQuantity(e.target.value)} placeholder="Enter new Quantity here"/>
-    
-     <input type="number" onChange= {e => setPrice(e.target.value)} placeholder="Enter new price here" />
+        <input className="updateInv" type="number" onChange={e => setId(e.target.value)} placeholder="id"/>
+        <input className="updateInv" type="number" onChange= {e => setQuantity(e.target.value)} placeholder="Enter new Quantity here"/>
+        <input className="updateInv" type="number" onChange= {e => setPrice(e.target.value)} placeholder="Enter new price here" />
 
     
-     <button onClick={updateCall} type="submit">Update</button> 
+     <button onClick={updateCall} className="btn btn-info" id="update-inv" type="submit">Update</button> 
     </>
  )
 
@@ -41,7 +41,10 @@ function viewAllInventory() {
 }
 function updateCall()  {
 
-    axios.put(`http://3.87.75.177:8081/inventory/updateinventory/${id}`, {price: pricein, quantity: quantityin})
+    axios.put(`localhost:8081/inventory/updateinventory/${id}`, {
+        price: pricein, 
+        quantity: quantityin
+    })
 
                              
 .catch((error)=>{

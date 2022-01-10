@@ -15,15 +15,14 @@ export default function Orders() {
 
 
         function getOrders(user){
-            if(user.firstName === undefined){
-                document.getElementById("thisUser").innerHTML = "No one is logged in"
-            }
-            document.getElementById("thisUser").innerHTML = user.firstName+" "+user.lastName+" is logged in"; 
+            if(user.firstName === undefined){               
+            }else{          
               axios.get(ordersAPI)  
               .then(function (response){
                   displayOrders(user, response.data);
               })
             }
+        }
             
 function displayOrders(user, orders){
     console.log(user);

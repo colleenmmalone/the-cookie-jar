@@ -64,13 +64,16 @@ export default function Store(){
                 imgSrc = defaultImg;
             } */
             return (
+                
                 <tr key={el.itemid}>
-                <td className="store-table-data">
+                <td className="orderDisplay">
                     <img className='thumb' src={require('./pictures/' + el.storeImg)} alt="cakeimage" />
                 </td>
-                <td className="store-table-data">{el.items}</td>
-                <td className="store-table-data">${el.price}</td>
-                {status === "CUSTOMER" ? <Button className="add-to-cart-button" onClick={()=> {addToCart(el)}} variant="info">Add To Cart</Button> : ""}
+                <td className="orderDisplay">{el.items}</td>
+                <td className="orderDisplay" >${el.price}</td>
+                
+                {status === "CUSTOMER" ? <td className="orderDisplay"><Button className="add-to-cart-button" id="addtocart" onClick={()=> {addToCart(el)}} variant="info">Add To Cart</Button> </td> : ""}
+               
                 </tr>
             )   
         
@@ -80,9 +83,7 @@ export default function Store(){
     console.log(data.firstName);
     setStatus(data.status);
     if(data.firstName === undefined){ //if no one is logged in
-        document.getElementById("thisUser").innerHTML = "";
     }else{
-        document.getElementById("thisUser").innerHTML = data.firstName+" "+data.lastName+ " is logged in!";
         console.log(data.status);
         if(data.status === 'EMPLOYEE'){
             isEmployee();
@@ -93,15 +94,14 @@ export default function Store(){
         <>
             <h3 class="pageTitle">Store</h3>
             <h5 id="thisUser"></h5>
-            {status === "CUSTOMER" ?<button onClick={() => setCartPage(!cartPage)}>{cartPage ? ("Return to store") :("Checkout")}</button>: ""}
+            {status === "CUSTOMER" ?<button className="btn btn-info" id="checkout" onClick={() => setCartPage(!cartPage)}>{cartPage ? ("Return to store") :("Checkout")}</button>: ""}
             <div id="empBtnDiv"></div>
-            <span id="cart">
-                <table class="table table-sm">
-                    <tbody>
+            <hr/>
+      
+
                         {cartPage ? (<Cart basket={basket} />) : (inventoryItem)}
-                    </tbody>
-                </table>
-            </span>
+ 
+
         </>
     )
 }
@@ -117,21 +117,7 @@ function updateStore() {
 
 function isEmployee() {
     ReactDOM.render(
-        <button id="emp" onClick={updateStore}>Update Inventory</button>,
+        <button id="emp" id="update-inv" className="btn btn-info" onClick={updateStore}>Update Inventory</button>,
         document.getElementById('empBtnDiv')
     );
 }
-
-// function currentUser(data) {
-//     console.log(data.firstName);
-//     if (data.firstName === undefined) { //if no one is logged in
-//         document.getElementById("thisUser").innerHTML = "";
-//     } else {
-//         console.log(data.status);
-//         // setUSerStatus = data.status;
-//         if (data.status == 'EMPLOYEE') {
-//             isEmployee();
-
-//         }
-//     }
-// }
