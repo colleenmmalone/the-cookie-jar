@@ -104,6 +104,8 @@ td{
 
 .thumb{
   width: 125px;
+  height: 125px !important;
+  object-fit: cover !important;
 }
 
 @keyframes App-logo-spin {
