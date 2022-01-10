@@ -26,7 +26,8 @@ export default function UpdateInventory(props) {
         <input className="updateInv" type="number" onChange= {e => setPrice(e.target.value)} placeholder="Enter new price here" />
 
     
-     <button onClick={updateCall} className="btn btn-info" id="update-inv" type="submit">Update</button> 
+     <button onClick={updateCall} className="btn btn-info" id="update-inv" type="submit">Update</button> <br/>
+     <div id="infoBar"></div>
     </>
  )
 
