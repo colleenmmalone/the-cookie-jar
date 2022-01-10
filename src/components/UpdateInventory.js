@@ -41,7 +41,7 @@ function viewAllInventory() {
 }
 function updateCall()  {
 
-    axios.put(`localhost:8081/inventory/updateinventory/${id}`, {
+    axios.put(`http://localhost:8081/inventory/updateinventory/${id}`, {
         price: pricein, 
         quantity: quantityin
     })
