@@ -16,6 +16,7 @@ export default function Logout(){
 
 
   function logoutUser(){
+    document.getElementById("loggedInUser").innerHTML = "Guest";
     ReactDOM.render(
         <React.StrictMode>
           <Home />

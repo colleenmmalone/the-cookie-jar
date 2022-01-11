@@ -1,5 +1,7 @@
 import ReactDOM from 'react-dom';
 import React, { useState, useEffect } from "react";
+import "../css/Home.css";
+import Button from 'react-bootstrap/Button';
 
 import logo from './logo.svg';
 
@@ -29,7 +31,6 @@ export default function Home(){
             "email": emailin,
             "pswd": pswdin
         })
-
             .then(response => response)
             .then(({data}) => {
                 submitted(data)
@@ -46,9 +47,9 @@ export default function Home(){
         <>
         <h3 class="pageTitle">Login</h3>
         {/*<form>*/}
-            <input type="text" placeholder="Email" onChange={e => setEmail(e.target.value)}></input><br/>
-            <input type="password" placeholder="Password" onChange={e => setPswd(e.target.value)}></input><br/>
-            <button id="loginSubmit" onClick={submit}>Submit</button><br/>
+            <input className="login-form" id="email-input" classtype="text" placeholder="Email" onChange={e => setEmail(e.target.value)}></input><br/>
+            <input className="login-form" id="password-input" type="password" placeholder="Password" onChange={e => setPswd(e.target.value)}></input><br/>
+            <button className="btn btn-info" id="loginSubmit" onClick={submit}>Submit</button><br/>
 
         {/*</form>*/}
         <p>Not a registered user? Create an Account <a href="javascript:void(0)" onClick={register}>here</a></p><br/>
@@ -70,22 +71,12 @@ function register(){
       );
 }
 
-function userIsLoggedIn(){
-    ReactDOM.render(
-        <React.StrictMode>
-          <Store />
-        </React.StrictMode>,
-        document.getElementById('main')
-      );
-}
-
-
 function currentUser(data){
     console.log(data.firstName);
     if(data.firstName === undefined){ //if no one is logged in
         document.getElementById("thisUser").innerHTML = "";
     }else{
-        document.getElementById("thisUser").innerHTML = data.firstName+ " is logged in!";
+        document.getElementById("thisUser").innerHTML = data.firstName+ " is already logged in!";
     }
 }
 
@@ -94,9 +85,16 @@ function submitted(data){
     if(data.firstName === undefined){
         document.getElementById("thisUser").innerHTML = "login credentials are invalid. Please try again";
     }else{
-        
-        userIsLoggedIn();
+        document.getElementById("loggedInUser").innerHTML = data.firstName+" "+data.lastName;
+    
+        //userIsLoggedIn();
+        ReactDOM.render(
+            <React.StrictMode>
+              <Store />
+            </React.StrictMode>,
+            document.getElementById('main')
+          );
 
-       // document.getElementById("thisUser").innerHTML = data.firstName+ " is already logged in!";
+       // 
     }
 }

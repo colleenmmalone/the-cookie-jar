@@ -1,7 +1,7 @@
 
 import logo from './logo.svg';
 
-export default function About(){
+export default function Contact(){
     return(
         <>
         <h3 class="pageTitle">Store hours</h3>

@@ -6,7 +6,7 @@ import axios from 'axios';
 import InventoryList from "./InventoryList";
 import ReactDOM from "react-dom";
 
-const AddInventoryItem = () => {
+export default function AddInventoryItem() {
     const [itemsin, setItems] = useState("");
     const [quantityin, setQuantity] = useState("");
     const[pricein, setPrice] = useState("");
@@ -14,7 +14,7 @@ const AddInventoryItem = () => {
     const storeImgin = 'default.jpg';
 
    // const postRequestHandler = () => {};
-   function addNewItem(){
+function addNewItem(){
    // const data = {items, quantity, price, storeImg};
     console.log("inside addNewItem");
    // console.log(data);
@@ -44,12 +44,11 @@ const AddInventoryItem = () => {
 
 
 
-
     return (
         <>
 
         <h3 class="pageTitle">Add Item to Inventory</h3>
-<form>
+
          <input
             type="text"
             value={itemsin}
@@ -73,23 +72,19 @@ const AddInventoryItem = () => {
 
 
 
-          <button onClick={addNewItem} type="submit">submit changes</button>   <br/>
- </form>
+          <button className="btn btn-info" id="update-inv" onClick={addNewItem} type="submit">submit changes</button>   <br/>
+ 
           <div id="addItemRes"></div>   
           <div id="refreshStore"></div> 
 
      </>
     );
 
-
-
-export default AddInventoryItem;
-
-
+    }
 
 function backToStore(){
 const refreshBtn = (
-        <button onClick={renderInv}>Refresh Store</button>
+        <button onClick={renderInv}className="btn btn-info" id="update-inv" >Refresh Store</button>
     )
     ReactDOM.render(refreshBtn, document.getElementById('refreshStore'));
 }

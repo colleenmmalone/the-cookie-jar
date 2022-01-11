@@ -4,29 +4,30 @@ import axios from 'axios';
 
 import InventoryList from './InventoryList';
 import ReactDOM from "react-dom";
+import { isConstructorDeclaration } from "typescript";
 
-export default function UpdateInventory() {
+export default function UpdateInventory(props) {
 
 
     const [id, setId] = useState(0);
     console.log("id=" +id);
-    const [quantity, setQuantity] = useState(0);
-    console.log("qty="+ quantity);
-    const [price, setPrice] = useState(0);
-    console.log("price =" + price);
+    const [quantityin, setQuantity] = useState(0);
+    console.log("qty="+ quantityin);
+    const [pricein, setPrice] = useState(0);
+    console.log("price =" + pricein);
+
 
     
  
  return (
     <>
-
-      <input type="number" onChange={e => setId(e.target.value)} placeholder="id"/>
-    <input type="number" onChange= {e => setQuantity(e.target.value)} placeholder="Enter new Quantity here"/>
-    
-     <input type="number" onChange= {e => setPrice(e.target.value)} placeholder="Enter new price here" />
+        <input className="updateInv" type="number" onChange={e => setId(e.target.value)} placeholder="id"/>
+        <input className="updateInv" type="number" onChange= {e => setQuantity(e.target.value)} placeholder="Enter new Quantity here"/>
+        <input className="updateInv" type="number" onChange= {e => setPrice(e.target.value)} placeholder="Enter new price here" />
 
     
-     <button onClick={updateCall} type="submit">Update</button> 
+     <button onClick={updateCall} className="btn btn-info" id="update-inv" type="submit">Update</button> <br/>
+     <div id="infoBar"></div>
     </>
  )
 
@@ -41,7 +42,10 @@ function viewAllInventory() {
 }
 function updateCall()  {
 
-    axios.put(`http://localhost:8081/inventory/updateinventory/${id}`, {price: price, quantity:quantity ,  storeImg:""})
+    axios.put(`http://localhost:8081/inventory/updateinventory/${id}`, {
+        price: pricein, 
+        quantity: quantityin
+    })
 
                              
 .catch((error)=>{

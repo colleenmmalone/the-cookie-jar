@@ -59,6 +59,7 @@
 
 #cart{
   display: inline-block;
+  border: none !important;
 }
 
 #sideBar{
@@ -103,7 +104,9 @@ td{
 }
 
 .thumb{
-  width: 125px;
+  width: 125px !important;
+  height: 125px !important;
+  object-fit: cover !important;
 }
 
 @keyframes App-logo-spin {
@@ -129,8 +132,11 @@ body{
   text-align: right;
 }
 
-.orderDisplay, .orderDisplay tr{
+.orderDisplay, .orderDisplay tr, .orderDisplay td{
   border:rgb(201, 37, 105)solid 1px;
+  font-size: 20px;
+  
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 .orderDisplay th{
@@ -140,6 +146,21 @@ body{
 }
 
 
-.orderDisplay td{
-  padding: 10px 20px;
+.orderDisplay td,.orderDisplay th{
+  padding: 20px;
+  border: none;
+}
+
+#loginSubmit, #regSubmit, .add-to-cart-button, #update-inv, #add-inv, #viewall, #viewbyid, #checkout{
+  background-color: rgb(184, 52, 98);
+  border: none;
+  margin: 10px;
+  color: white;
+}
+
+#addtocart, #update, #delete{
+  margin: 10px;
+}
+.login-form, .reg-form, .updateInv{
+  margin: 10px;
 }
