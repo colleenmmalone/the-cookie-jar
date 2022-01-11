@@ -8,64 +8,131 @@ export default function Orders() {
     const loginsAPI = ("http://localhost:8081/logins/");
     const ordersAPI = ("http://localhost:8081/orders/");
 
-    axios.get(loginsAPI+"whoisloggedin")
-        .then(function (response){
-          getOrders(response.data);
-            })       
+    const [sortType, setSortType] = useState("All");
+    const [itemStatus, setItemStatus] = useState("");
+    const [user, setUser] = useState([]);
+    const [orders, setOrders] = useState([]);
 
 
-        function getOrders(user){
-            if(user.firstName === undefined){
-                document.getElementById("thisUser").innerHTML = "No one is logged in"
-            }
-            document.getElementById("thisUser").innerHTML = user.firstName+" "+user.lastName+" is logged in"; 
-              axios.get(ordersAPI)  
-              .then(function (response){
-                  displayOrders(user, response.data);
-              })
-            }
+    // grabs user data and set user
+    useEffect(() => {
+        axios.get(`${loginsAPI + "whoisloggedin"}`)
+            .then(response => response)
+            .then(({data: user}) => {
+                setUser(user);
+            })
+            .catch(err => {
+                console.log("Error setting user values", err)
+            })
+    }, []);
+
+    useEffect(() => {
+        axios.get(ordersAPI)
+            .then(response => response)
+            .then(({data: orders}) => {
+                setOrders(orders);
+            })
+            .catch(err => {
+                console.log("Error occurred while retrieve orders", err)
+            })
+    }, []);
+
+    const displayAllOrders = orders.map((item) => {
+        if (user.id === item.customer && user.status === "CUSTOMER") {
+        return(
+          <>  
+          { sortType === item.orderStatus || sortType === "All" ?
+            <tr key={item.orderid}>
+              <td>{item.orderid}</td>
+              <td>{"$"+item.total}</td>
+              <td>{item.orderStatus}</td>
+            </tr> : ""
+        }
+          </>  
+          )
+        }
+
+        if (user.status === "EMPLOYEE") {
+            return (
+                <>
+                    {sortType === item.orderStatus || sortType === "All" ?
+                     <tr key={item.orderid}>
+                     <td>{item.orderid}</td>
+                     <td>{"$"+item.total}</td>
+                     <td>{item.orderStatus}</td>
+                     <td>
+                        <select name="itemStatus" 
+                        onChange={(e) => 
+                        updateStatus(item.orderid, e.target.value) && setItemStatus(e.target.value) && updateOrderStatus(item.orderid, e.target.value)}>
+                            <option value="" disabled selected>Update status...</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Preparing">Preparing</option>
+                            <option value="Delivered">Delivered</option>
+                        </select>
+                    </td>
+                     </tr> : ""
+                    }
+                </>
+            )
+        } 
+    }
+    )
+
+    console.log(itemStatus)
+
+    // tells component to do something after selecting
+    const updateStatus = function(id, status) {  
+        updateOrderStatus(id, status)
+        axios.put(`http://localhost:8081/orders/updateorder/status=${status}/${id}`)
+            .then(response => console.log(response))
+            .catch(err => {
+                console.log("Error updating status", err);
+            })
+    }      
+    const updateOrderStatus = (itemid, newStatus) => {
+        setOrders(orders.map((val) => {
+            return val.orderid === itemid ?
+            {
+                orderid: val.orderid,
+                total: val.total,
+                orderDate: val.orderDate,
+                orderStatus: newStatus
+            } : val
+        }))
+    }
+
             
-function displayOrders(user, orders){
-    console.log(user);
-    console.log(orders);
-
-       const element = (
+    return (
+        <>
+            <h3 class="pageTitle">Orders</h3>
+            <h5 id="thisUser"></h5>
+            <span>Sort By:
+                <select onChange={(e) => setSortType(e.target.value)}>
+                <option value="All">All</option>
+                <option value="Pending">Pending</option>
+                <option value="Preparing">Preparing</option>
+                <option value="Delivered">Delivered</option>
+                </select>    
+            </span>
             <table class="orderDisplay">
                 <tr>
                     <th>Order#</th>
                     <th>Total</th>
                     <th>Status</th>
+                    {user.status === "EMPLOYEE" ? <th>Update Status</th>: ""}
                 </tr>
-               { orders.map(o => {
-                   if(user.id === o.customer){
-                    return(
-                        <tr>
-                        <td>{o.orderid}</td>
-                        <td>{"$"+o.total}</td>
-                        <td>{o.orderStatus}</td>
-                        </tr>
-                    )
-               }
-                })}
-           </table>
-           );
-    ReactDOM.render(element, document.getElementById('orderDisplay'));
-
-}
-
-
-    return (
-        <>
-
-            <h3 class="pageTitle">Orders</h3>
-            <h5 id="thisUser"></h5>
-            <div id="orderDisplay"></div>
+                <tbody>
+                  {displayAllOrders}
+                </tbody>
+            </table>
+            {/* <div id="orderDisplay"></div> */}
 
 
         </>
     )
 
 }
+
 
 
 
