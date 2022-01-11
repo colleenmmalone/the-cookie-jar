@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ReactDOM from "react-dom";
+import OrderContentsPage from "./OrderContentsPage";
+
 
 
 
@@ -13,6 +15,8 @@ export default function Orders() {
     const [itemStatus, setItemStatus] = useState("");
     const [user, setUser] = useState([]);
     const [orders, setOrders] = useState([]);
+    const [displayCartItems, setDisplayCartItems] = useState(false);
+    const [currOrderId, setCurrOrderId] = useState(0);
 
 
     // grabs user data and set user
@@ -47,6 +51,7 @@ export default function Orders() {
               <td>{item.orderid}</td>
               <td>{"$"+item.total}</td>
               <td>{item.orderStatus}</td>
+              <button onClick={() => {setDisplayCartItems(!displayCartItems); setCurrOrderId(item.orderid)}}>Order Contents</button>
             </tr> : ""
         }
           </>  
@@ -79,8 +84,6 @@ export default function Orders() {
     }
     )
 
-    console.log(itemStatus)
-
     // tells component to do something after selecting
     const updateStatus = function(id, status) {  
         updateOrderStatus(id, status)
@@ -106,6 +109,8 @@ export default function Orders() {
             
     return (
         <>
+            {displayCartItems ? <OrderContentsPage orders={orders} currOrderId={currOrderId} user={user} /> : 
+            <>
             <h3 class="pageTitle">Orders</h3>
             <h5 id="thisUser"></h5>
             <span>Sort By:
@@ -121,15 +126,15 @@ export default function Orders() {
                     <th>Order#</th>
                     <th>Total</th>
                     <th>Status</th>
+                    <th>Order Contents</th>
                     {user.status === "EMPLOYEE" ? <th>Update Status</th>: ""}
                 </tr>
                 <tbody>
                   {displayAllOrders}
                 </tbody>
             </table>
-            {/* <div id="orderDisplay"></div> */}
-
-
+            </>
+            }
         </>
     )
 
