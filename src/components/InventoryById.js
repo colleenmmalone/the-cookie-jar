@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 //import {useTable} from "react-table";
 import axios from 'axios';
 import ReactDOM from "react-dom";
+import UpdateInventory from "./UpdateInventory";
 
 
 
@@ -76,6 +77,8 @@ const InventoryById = (id) => {
               <td><img src={require('./pictures/' + data.storeImg)} alt="cake" class="thumb" /></td>
             </tr>
           </table>
+          <br/>
+          <UpdateInventory id={data.itemid} />
         </div>
       )
     }

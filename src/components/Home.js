@@ -49,7 +49,7 @@ export default function Home(){
         {/*<form>*/}
             <input className="login-form" id="email-input" classtype="text" placeholder="Email" onChange={e => setEmail(e.target.value)}></input><br/>
             <input className="login-form" id="password-input" type="password" placeholder="Password" onChange={e => setPswd(e.target.value)}></input><br/>
-            <button className="login-form" id="loginSubmit" onClick={submit}>Submit</button><br/>
+            <button className="btn btn-info" id="loginSubmit" onClick={submit}>Submit</button><br/>
 
         {/*</form>*/}
         <p>Not a registered user? Create an Account <a href="javascript:void(0)" onClick={register}>here</a></p><br/>

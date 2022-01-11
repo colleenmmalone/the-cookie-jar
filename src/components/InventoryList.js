@@ -35,7 +35,7 @@ export default function InventoryList() {
                 <td>{d.itemid}</td>
                 <td>{d.items}</td>
                 <td>{d.quantity}</td>
-                <td>{d.price}</td>
+                <td>${d.price}</td>
                 <td><img src={require('./pictures/default.jpg')} class="thumb" /></td>
 
               </tr>
@@ -46,7 +46,7 @@ export default function InventoryList() {
                 <td>{d.itemid}</td>
                 <td>{d.items}</td>
                 <td>{d.quantity}</td>
-                <td>{d.price}</td>
+                <td>${d.price}</td>
                 <td><img src={require('./pictures/' + d.storeImg)} class="thumb" /></td>
 
               </tr>
