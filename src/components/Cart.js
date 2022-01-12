@@ -7,10 +7,12 @@ import croissant from "./pictures/croissant.jpg";
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../css/Cart.css'
+import AfterCheckout from './AfterCheckout';
 
 export default function Cart(props){
 
     let [basket, setBasket] = useState(props.basket);
+    const [successPage, setSuccessPage] = useState(true);
     // retrieve logged in user from backend
     const [loggedInUser, setLoggedInUser] = useState([]);
     var date = new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString()
@@ -102,7 +104,13 @@ export default function Cart(props){
             return val.itemid !== itemId    
         }))
     }
+
+    const handleSuccessBtn = e => {
+        setSuccessPage(!successPage);
+    };
     return(
+        <>
+        { successPage ? // if else
         <>
         <span id="cart">
         <h3 class="pageTitle">Shopping Cart</h3>
@@ -120,8 +128,10 @@ export default function Cart(props){
                 <p><strong>Total: ${totalPrice}</strong></p>
             </div>
             <br/><br/><br/>
-            <button id="pay" onClick={payOrder}>Checkout</button>
+            <button id="pay" onClick={() => {payOrder(); handleSuccessBtn()}}>Checkout</button>
             </span>
+        </> : <AfterCheckout />
+        }
         </>
     )
 }

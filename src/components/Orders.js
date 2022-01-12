@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ReactDOM from "react-dom";
 import OrderContentsPage from "./OrderContentsPage";
+import Button from 'react-bootstrap/Button';
 
 
 
@@ -51,12 +52,15 @@ export default function Orders() {
               <td>{item.orderid}</td>
               <td>{"$"+item.total}</td>
               <td>{item.orderStatus}</td>
-              <button onClick={() => {setDisplayCartItems(!displayCartItems); setCurrOrderId(item.orderid)}}>Order Contents</button>
+              <Button variant="info" onClick={() => {setDisplayCartItems(!displayCartItems); setCurrOrderId(item.orderid)}}>Order Contents</Button>
             </tr> : ""
         }
           </>  
           )
         }
+
+        console.log(currOrderId);
+        console.log(user);
 
         if (user.status === "EMPLOYEE") {
             return (
@@ -66,6 +70,7 @@ export default function Orders() {
                      <td>{item.orderid}</td>
                      <td>{"$"+item.total}</td>
                      <td>{item.orderStatus}</td>
+                     <Button variant="info" onClick={() => {setDisplayCartItems(!displayCartItems); setCurrOrderId(item.orderid)}}>Order Contents</Button>
                      <td>
                         <select name="itemStatus" 
                         onChange={(e) => 
@@ -81,7 +86,7 @@ export default function Orders() {
                 </>
             )
         } 
-    }
+      }
     )
 
     // tells component to do something after selecting
@@ -104,11 +109,21 @@ export default function Orders() {
             } : val
         }))
     }
-
-
-            
+    
+    // wasn't able to pass props to nav bar button so I just used javascript way to redirect page when user clicks on orders navbar again
+    let navBarOrderButton = document.getElementsByClassName("order-navBar");
+    useEffect(() => {
+        for (let i = 0; i < navBarOrderButton.length; i++) {
+            navBarOrderButton[0].addEventListener('click', function(e) {
+                e.preventDefault();
+                setDisplayCartItems(false);
+            })
+        }
+        })
+        
     return (
         <>
+
             {displayCartItems ? <OrderContentsPage orders={orders} currOrderId={currOrderId} user={user} /> : 
             <>
             <h3 class="pageTitle">Orders</h3>
