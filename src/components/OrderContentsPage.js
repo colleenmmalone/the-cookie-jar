@@ -44,6 +44,19 @@ export default function OrderContentsPage(props) {
                     </>
                 )
             }
+
+            if (props.currOrderId === item.orderid) {
+                return (
+                    <>
+                    <tr key={orderContents.id}>
+                     <td>{orderContents.ordercontentsid}</td>
+                     <td>{orderContents.item}</td>
+                     <td>{orderContents.price}</td>
+                     <td>{orderContents.quantity}</td>
+                    </tr>
+                 </>
+                )
+            }
         })
     })
 

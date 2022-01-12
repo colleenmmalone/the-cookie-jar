@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
 import Button from 'react-bootstrap/Button';
+import ReactPaginate from "react-paginate";
 
 import InventoryMaster from "./InventoryMaster";
 import Cart from './Cart.js';
@@ -16,8 +17,30 @@ export default function Store(){
     
     const [item, setItems] = useState([]);
     const [basket, setBasket] = useState([]);
+    const [pageNumber, setPageNumber] = useState(0);
     const [cartPage, setCartPage] = useState(false);
     const [status, setStatus] = useState(""); 
+
+    const itemsPerPage = 5;
+    const pageVisited = pageNumber * itemsPerPage;
+    const changePage = ({selected}) => {
+        // set page num as selected
+        setPageNumber(selected)
+    }
+
+    const pageCount = Math.ceil(item.length / itemsPerPage);
+    const displayItems = item.slice(pageVisited, pageVisited + itemsPerPage).map(item => {
+        return (
+            <tr key={item.itemid}>
+            <td className="store-table-data">
+                <img className='thumb' src={require('./pictures/' + item.storeImg)} alt="cakeimage" />
+            </td>
+            <td className="store-table-data">{item.items}</td>
+            <td className="store-table-data">${item.price}</td>
+            {status === "CUSTOMER" ? <Button className="add-to-cart-button" onClick={()=> {addToCart(item)}} variant="info">Add To Cart</Button> : ""}
+            </tr>
+        )
+    });
 
     useEffect(function inventoryFunc() {
         axios.get(inventoryUrl)
@@ -51,30 +74,30 @@ export default function Store(){
         }
     }
     
-    let inventoryItem = item.map(function(el) {
-        let imgSrc;
-        // console.log(el);
-/*             if (el.items === "matcha cake") {
-                imgSrc = matcha;
-            } else if (el.items === "chocolate cake") {
-                imgSrc= choc;
-            } else if (el.items=== "croissant") {
-                imgSrc = croissant;
-            } else {
-                imgSrc = defaultImg;
-            } */
-            return (
-                <tr key={el.itemid}>
-                <td className="store-table-data">
-                    <img className='thumb' src={require('./pictures/' + el.storeImg)} alt="cakeimage" />
-                </td>
-                <td className="store-table-data">{el.items}</td>
-                <td className="store-table-data">${el.price}</td>
-                {status === "CUSTOMER" ? <Button className="add-to-cart-button" onClick={()=> {addToCart(el)}} variant="info">Add To Cart</Button> : ""}
-                </tr>
-            )   
+//     let inventoryItem = item.map(function(el) {
+//         let imgSrc;
+//         // console.log(el);
+// /*             if (el.items === "matcha cake") {
+//                 imgSrc = matcha;
+//             } else if (el.items === "chocolate cake") {
+//                 imgSrc= choc;
+//             } else if (el.items=== "croissant") {
+//                 imgSrc = croissant;
+//             } else {
+//                 imgSrc = defaultImg;
+//             } */
+//             return (
+//                 <tr key={el.itemid}>
+//                 <td className="store-table-data">
+//                     <img className='thumb' src={require('./pictures/' + el.storeImg)} alt="cakeimage" />
+//                 </td>
+//                 <td className="store-table-data">{el.items}</td>
+//                 <td className="store-table-data">${el.price}</td>
+//                 {status === "CUSTOMER" ? <Button className="add-to-cart-button" onClick={()=> {addToCart(el)}} variant="info">Add To Cart</Button> : ""}
+//                 </tr>
+//             )   
         
-    }) 
+//     }) 
 
   function currentUser(data){
     console.log(data.firstName);
@@ -98,9 +121,22 @@ export default function Store(){
             <span id="cart">
                 <table class="table table-sm">
                     <tbody>
-                        {cartPage ? (<Cart basket={basket} />) : (inventoryItem)}
+                        {cartPage ? <Cart basket={basket} />: (displayItems)}
                     </tbody>
                 </table>
+                        {cartPage ? "" : 
+                        <ReactPaginate
+                            previousLabel = {"Previous"}
+                            nextLabel= {"Next"}
+                            pageCount = {pageCount}
+                            onPageChange = {changePage}
+                            containerClassName={"paginationButtons"}
+                            previousLinkClassName = {"previousButton"}
+                            nextLinkClassName = {"nextButton"}
+                            disabledClassName = {"paginationDisable"}
+                            activeClassName = {"paginationActive"}
+                        />
+                        }
             </span>
         </>
     )

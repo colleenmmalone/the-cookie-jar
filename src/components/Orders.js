@@ -58,6 +58,9 @@ export default function Orders() {
           )
         }
 
+        console.log(currOrderId);
+        console.log(user);
+
         if (user.status === "EMPLOYEE") {
             return (
                 <>
@@ -66,6 +69,7 @@ export default function Orders() {
                      <td>{item.orderid}</td>
                      <td>{"$"+item.total}</td>
                      <td>{item.orderStatus}</td>
+                     <Button variant="info" onClick={() => {setDisplayCartItems(!displayCartItems); setCurrOrderId(item.orderid)}}>Order Contents</Button>
                      <td>
                         <select name="itemStatus" 
                         onChange={(e) => 
