@@ -67,8 +67,10 @@ export default function Cart(props){
                     className="cart-quantity-adjust" type="number" >
                 </input>Quantity</td>
                 <td>${el.price * el.quantity}</td>
-                 <Button onClick={()=> updateQuantity(el.itemid,newQuantity)}variant="info">Update</Button>
-                 <Button onClick={()=> deleteItem(el.itemid)}variant="danger">Remove</Button>
+                <td>
+                    <Button id="update" onClick={()=> updateQuantity(el.itemid,newQuantity)}variant="info">Update</Button>
+                    <Button id="delete" onClick={()=> deleteItem(el.itemid)}variant="danger">Remove</Button>
+                 </td>
                 </tr>
             )   
         }) 
@@ -112,7 +114,7 @@ export default function Cart(props){
         <>
         <span id="cart">
         <h3 class="pageTitle">Shopping Cart</h3>
-            <table class="table table-sm">
+            <table class="orderDisplay">
                 <tbody>
                 <tr>
                     {cartItems}

@@ -11,6 +11,7 @@ export default function Orders() {
     const loginsAPI = ("http://localhost:8081/logins/");
     const ordersAPI = ("http://localhost:8081/orders/");
 
+
     const [sortType, setSortType] = useState("All");
     const [itemStatus, setItemStatus] = useState("");
     const [user, setUser] = useState([]);
@@ -108,7 +109,7 @@ export default function Orders() {
             } : val
         }))
     }
-
+    
     // wasn't able to pass props to nav bar button so I just used javascript way to redirect page when user clicks on orders navbar again
     let navBarOrderButton = document.getElementsByClassName("order-navBar");
     useEffect(() => {
@@ -120,7 +121,6 @@ export default function Orders() {
         }
         })
         
-            
     return (
         <>
 

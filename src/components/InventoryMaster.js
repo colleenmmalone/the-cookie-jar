@@ -1,13 +1,11 @@
 import React from "react";
-import {  useState } from "react";
-//import axios from 'axios';
+import { useState } from "react";
 import InventoryById from "./InventoryById";
 import InventoryList from "./InventoryList";
 import ReactDOM from "react-dom";
 
 import AddInventoryItem from "./AddInventoryItem";
 import UpdateInventory from "./UpdateInventory";
-//            <button onClick={editItem}>Update Inventory</button>
 
 export default function InventoryMaster() {
 
@@ -21,14 +19,12 @@ export default function InventoryMaster() {
     return (
         <div>
             <input onChange={event => setId(event.target.value)} type="number" placeholder="enter itemID here" min="0"></input>
-            <button onClick={inventorybyID}>View Inventory by Id</button>
-            <br></br>
-            <button onClick={viewAllInventory}>View Inventory</button>
-            <button onClick={quantity}>Update Inventory</button>
-            <button onClick={additem}>Add item to Inventory</button>
-
+            <button className="btn btn-info" id="viewbyid" onClick={inventorybyID}>View by Id</button>
             <br/><br/>
+            <button className="btn btn-info" id="viewall" onClick={viewAllInventory}>View All</button>    
+            <button className="btn btn-info" id="add-inv" onClick={additem}>Add New Item</button>
 
+            <br/><hr/>
 
             <div id="inventory">
                 <InventoryList />
@@ -36,7 +32,6 @@ export default function InventoryMaster() {
 
         </div>
     )
-
 
     function additem() {
         ReactDOM.render(
@@ -65,7 +60,6 @@ export default function InventoryMaster() {
         );
     }
 
-
     function quantity(){
       ReactDOM.render(
         <React.StrictMode>
@@ -73,7 +67,6 @@ export default function InventoryMaster() {
         </React.StrictMode>,
         document.getElementById('inventory')
       );
-      //UpdateInventory id={id}
     }
 
 

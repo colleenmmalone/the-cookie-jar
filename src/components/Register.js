@@ -42,18 +42,18 @@ export default function Register(){
     }
     return(
         <>
-        <h3>Register</h3>
+        <h3 className="pageTitle">Register</h3>
          <p>Enter your details for delicious cookies!</p>
             <br/>
             <div id="regForm">
 
-            First Name:<input type="text" placeholder="First Name" onChange={e => setFirstName(e.target.value)}></input><br/>
-            Last Name:<input type="text" placeholder="Last Name" onChange={e => setLastName(e.target.value)}></input><br/><br/>
-            Email:<input type="text" placeholder="Email" onChange={e => setEmail(e.target.value)}></input><br/><br/>
-            Password:<input type="password" placeholder="Password" onChange={e => setPswd(e.target.value)}></input><br/>
-            Confirm Password:<input type="password" placeholder="Confirm Password" onChange={e => setPswd2(e.target.value)}></input><br/><br/>
+            First Name:<input type="text" placeholder="First Name" className="reg-form" onChange={e => setFirstName(e.target.value)}></input><br/>
+            Last Name:<input type="text" placeholder="Last Name"  className="reg-form" onChange={e => setLastName(e.target.value)}></input><br/><br/>
+            Email:<input type="text" placeholder="Email"  className="reg-form" onChange={e => setEmail(e.target.value)}></input><br/><br/>
+            Password:<input type="password" placeholder="Password"  className="reg-form" onChange={e => setPswd(e.target.value)}></input><br/>
+            Confirm Password:<input type="password" placeholder="Confirm Password"  className="reg-form" onChange={e => setPswd2(e.target.value)}></input><br/>
             </div>
-            <button id="regSubmit" onClick={submit}>Register</button><br/>
+            <button className="btn btn-info" id="regSubmit" onClick={submit}>Register</button><br/>
 
         <p>Already a registered user? Login <a href="javascript:void(0)" onClick={login}>here</a></p>
         <br/>
