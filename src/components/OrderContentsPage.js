@@ -8,27 +8,12 @@ import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../css/Cart.css'
 
+// maybe add pictures 
 // curr props
 // --> props.orders
 // --> props.currOrderId
 // --> props.user
 export default function OrderContentsPage(props) {
-
-    const [orderContents, setOrderContents] = useState([]);
-
-    // const displayOrderContents = props.orders.map((item) => {
-    //    if (props.user.id === item.customer && props.currOrderId === item.orderid) 
-    //         for (let i = 0; i < item.orderContents.length; i++) {
-    //                <>
-                    // <tr key={item.orderContents[i].ordercontentsid}>
-                    //     <td>{item.orderContents[i].ordercontentsid}</td>
-                    //     <td>{item.orderContents[i].item}</td>
-                    //     <td>{item.orderContents[i].price}</td>
-                    //     <td>{item.orderContents[i].quantity}</td>
-    //                 </tr>
-    //                </>
-    //         }
-    // })
 
     const displayOrderContents = props.orders.map((item) => {
         return item.orderContents.map((orderContents) => {
