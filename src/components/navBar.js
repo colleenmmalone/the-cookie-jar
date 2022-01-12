@@ -22,7 +22,7 @@ export default function NavBar() {
      <button onClick={home}>Home</button>&emsp;
      <button onClick={store}>Store</button>&emsp;
      <button onClick={contact}>Contact</button>&emsp;
-     <button onClick={orders}>Orders</button>&emsp;
+     <button className="order-navBar" onClick={orders}>Orders</button>&emsp;
      <button onClick={logout}>Logout</button>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
      <span id="loggedInUser">Guest</span>&emsp;
    

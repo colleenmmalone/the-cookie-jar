@@ -32,3 +32,27 @@ img.thumb {
     height: 150px;
 }
 
+.paginationButtons {
+    width: 50%;
+    padding-top: 10px;
+    padding-left: 5px;
+    height: 40px;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+
+}
+
+.paginationButtons a {
+    padding: 8px;
+    margin: 5px;
+    border-radius: 5px;
+    border: 1px solid #2b2;
+    color:rgb(100, 27, 27);
+    cursor: pointer;
+}
+
+.paginationButtons a:hover {
+    color: rgb(73, 25, 25);
+    background-color: blue;
+}
