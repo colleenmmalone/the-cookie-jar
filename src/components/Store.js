@@ -114,7 +114,7 @@ export default function Store(){
 }
     return(
         <>
-            <h3 class="pageTitle">Store</h3>
+            <h3 class="pageTitle">{!cartPage ? "Store" : ""}</h3>
             <h5 id="thisUser"></h5>
             {status === "CUSTOMER" ?<button onClick={() => setCartPage(!cartPage)}>{cartPage ? ("Return to store") :("Checkout")}</button>: ""}
             <div id="empBtnDiv"></div>

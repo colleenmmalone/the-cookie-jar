@@ -108,7 +108,7 @@ export default function Cart(props){
     };
     return(
         <>
-        { successPage ? 
+        { successPage ? // if else
         <>
         <span id="cart">
         <h3 class="pageTitle">Shopping Cart</h3>
