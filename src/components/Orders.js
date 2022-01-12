@@ -123,7 +123,7 @@ export default function Orders() {
         
     return (
         <>
-
+            
             {displayCartItems ? <OrderContentsPage orders={orders} currOrderId={currOrderId} user={user} /> : 
             <>
             <h3 class="pageTitle">Orders</h3>
@@ -136,6 +136,7 @@ export default function Orders() {
                 <option value="Delivered">Delivered</option>
                 </select>    
             </span>
+            <br/><br/>
             <table class="orderDisplay">
                 <tr>
                     <th>Order#</th>

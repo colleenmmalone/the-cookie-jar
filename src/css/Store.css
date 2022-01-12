@@ -24,7 +24,6 @@ th {
 .add-to-cart-button {
     margin: auto;
     display:block;
-    margin-top: 60px;
 }
 
 img.thumb {
@@ -40,6 +39,7 @@ img.thumb {
     list-style: none;
     display: flex;
     justify-content: center;
+    color:rgb(176, 17, 96);
 
 }
 
@@ -47,12 +47,12 @@ img.thumb {
     padding: 8px;
     margin: 5px;
     border-radius: 5px;
-    border: 1px solid #2b2;
-    color:rgb(100, 27, 27);
+    border: 1px solid rgb(4, 153, 198);
+    color:rgb(176, 17, 96);
     cursor: pointer;
 }
 
 .paginationButtons a:hover {
     color: rgb(73, 25, 25);
-    background-color: blue;
+    background-color: rgb(35, 169, 231);
 }
