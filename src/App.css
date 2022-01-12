@@ -132,11 +132,15 @@ body{
   text-align: right;
 }
 
-.orderDisplay, .orderDisplay tr, .orderDisplay td{
+.orderDisplay, .orderDisplay tr{
   border:rgb(201, 37, 105)solid 1px;
   font-size: 20px;
   
   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.orderDisplay{
+  margin: px;
 }
 
 .orderDisplay th{
@@ -146,9 +150,9 @@ body{
 }
 
 
-.orderDisplay td,.orderDisplay th{
+.orderDisplay td, .orderDisplay th{
   padding: 20px;
-  border: none;
+  border: 0px;
 }
 
 #loginSubmit, #regSubmit, .add-to-cart-button, #update-inv, #add-inv, #viewall, #viewbyid, #checkout{
@@ -162,5 +166,9 @@ body{
   margin: 10px;
 }
 .login-form, .reg-form, .updateInv{
+  margin: 10px;
+}
+
+#itemStatus{
   margin: 10px;
 }

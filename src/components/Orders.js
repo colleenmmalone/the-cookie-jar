@@ -51,7 +51,7 @@ export default function Orders() {
               <td>{item.orderid}</td>
               <td>{"$"+item.total}</td>
               <td>{item.orderStatus}</td>
-              <button onClick={() => {setDisplayCartItems(!displayCartItems); setCurrOrderId(item.orderid)}}>Order Contents</button>
+              <td><button onClick={() => {setDisplayCartItems(!displayCartItems); setCurrOrderId(item.orderid)}}>Order Contents</button></td>
             </tr> : ""
         }
           </>  
