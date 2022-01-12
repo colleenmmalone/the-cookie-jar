@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import "../css/Home.css";
 import Button from 'react-bootstrap/Button';
 
+
 import logo from './logo.svg';
 
 import Register from "./Register";
@@ -27,7 +28,7 @@ export default function Home(){
 
     function submit(){
 
-        axios.post(loginsAPI+"login",{
+        axios.post(loginsAPI+"login", {
             "email": emailin,
             "pswd": pswdin
         })
@@ -46,12 +47,11 @@ export default function Home(){
     return(
         <>
         <h3 class="pageTitle">Login</h3>
-        {/*<form>*/}
+        <form className="login-form">
             <input className="login-form" id="email-input" classtype="text" placeholder="Email" onChange={e => setEmail(e.target.value)}></input><br/>
             <input className="login-form" id="password-input" type="password" placeholder="Password" onChange={e => setPswd(e.target.value)}></input><br/>
-            <button className="btn btn-info" id="loginSubmit" onClick={submit}>Submit</button><br/>
-
-        {/*</form>*/}
+            <button className="btn btn-info" id="loginSubmit" type="button" onClick={submit}>Submit</button><br/>
+        </form>
         <p>Not a registered user? Create an Account <a href="javascript:void(0)" onClick={register}>here</a></p><br/>
         <h5 id="thisUser"></h5><br/>
         

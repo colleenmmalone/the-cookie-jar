@@ -7,7 +7,7 @@ export default function Contact(){
         <h3 class="pageTitle">Store hours</h3>
         <p>Monday: closed</p>
         <p>Tues-Thurs: 10am-6pm</p>
-        <p>Fri-Sun: 10am-6pm</p>
+        <p>Fri-Sun: 10am-8pm</p>
         <hr/>
         <h3>Address</h3>
         <p>123 Fake St.</p>

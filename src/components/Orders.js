@@ -52,7 +52,7 @@ export default function Orders() {
               <td>{item.orderid}</td>
               <td>{"$"+item.total}</td>
               <td>{item.orderStatus}</td>
-              <Button variant="info" onClick={() => {setDisplayCartItems(!displayCartItems); setCurrOrderId(item.orderid)}}>Order Contents</Button>
+              <td><Button variant="info" onClick={() => {setDisplayCartItems(!displayCartItems); setCurrOrderId(item.orderid)}}>Order Contents</Button></td>
             </tr> : ""
         }
           </>  
@@ -70,7 +70,7 @@ export default function Orders() {
                      <td>{item.orderid}</td>
                      <td>{"$"+item.total}</td>
                      <td>{item.orderStatus}</td>
-                     <Button variant="info" onClick={() => {setDisplayCartItems(!displayCartItems); setCurrOrderId(item.orderid)}}>Order Contents</Button>
+                     <td><Button variant="info" onClick={() => {setDisplayCartItems(!displayCartItems); setCurrOrderId(item.orderid)}}>Order Contents</Button></td>
                      <td>
                         <select name="itemStatus" 
                         onChange={(e) => 
@@ -123,7 +123,7 @@ export default function Orders() {
         
     return (
         <>
-
+            
             {displayCartItems ? <OrderContentsPage orders={orders} currOrderId={currOrderId} user={user} /> : 
             <>
             <h3 class="pageTitle">Orders</h3>
@@ -136,6 +136,7 @@ export default function Orders() {
                 <option value="Delivered">Delivered</option>
                 </select>    
             </span>
+            <br/><br/>
             <table class="orderDisplay">
                 <tr>
                     <th>Order#</th>

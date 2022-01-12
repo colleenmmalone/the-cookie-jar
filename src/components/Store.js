@@ -37,7 +37,7 @@ export default function Store(){
             </td>
             <td className="store-table-data">{item.items}</td>
             <td className="store-table-data">${item.price}</td>
-            {status === "CUSTOMER" ? <Button className="add-to-cart-button" onClick={()=> {addToCart(item)}} variant="info">Add To Cart</Button> : ""}
+           <td> {status === "CUSTOMER" ? <Button className="add-to-cart-button" onClick={()=> {addToCart(item)}} variant="info">Add To Cart</Button> : ""} </td>
             </tr>
         )
     });
@@ -120,7 +120,7 @@ export default function Store(){
             <div id="empBtnDiv"></div>
 
             <span id="cart">
-                <table class="table table-sm">
+                <table className="orderDisplay">
                     <tbody>
                         {cartPage ? <Cart basket={basket} />: (displayItems)}
                     </tbody>
