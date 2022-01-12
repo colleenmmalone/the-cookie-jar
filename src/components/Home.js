@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom';
 import React, { useState, useEffect } from "react";
 import "../css/Home.css";
-import Button from 'react-bootstrap/Button';
+
 
 
 import logo from './logo.svg';
@@ -43,13 +43,12 @@ export default function Home(){
     
     }
 
-
     return(
         <>
         <h3 class="pageTitle">Login</h3>
         <form className="login-form">
-            <input className="login-form" id="email-input" classtype="text" placeholder="Email" onChange={e => setEmail(e.target.value)}></input><br/>
-            <input className="login-form" id="password-input" type="password" placeholder="Password" onChange={e => setPswd(e.target.value)}></input><br/>
+            <input className="login-form" id="email-input" classtype="text" placeholder="Email" onChange={e => setEmail(e.target.value)} noValidate></input><br/>
+            <input className="login-form" id="password-input" type="password" placeholder="Password" onChange={e => setPswd(e.target.value)} noValidate></input><br/>
             <button className="btn btn-info" id="loginSubmit" type="button" onClick={submit}>Submit</button><br/>
         </form>
         <p>Not a registered user? Create an Account <a href="javascript:void(0)" onClick={register}>here</a></p><br/>

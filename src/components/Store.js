@@ -120,7 +120,7 @@ export default function Store(){
             <div id="empBtnDiv"></div>
 
             <span id="cart">
-                <table classNamew="orderDisplay">
+                <table className="orderDisplay">
                     <tbody>
                         {cartPage ? <Cart basket={basket} />: (displayItems)}
                     </tbody>
