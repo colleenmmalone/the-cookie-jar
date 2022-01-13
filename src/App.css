@@ -55,6 +55,7 @@
   padding: 20px 0px;
   background: linear-gradient(white 0%, pink 90%);
   min-height: 600px;
+  white-space:pre-wrap;
 }
 
 #cart{

@@ -28,6 +28,13 @@ export default function Home(){
 
     function submit(){
 
+    let emailVer = emailin.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,}$/gi);
+  //  let pswdVer = pswdin.match(/^(?=[0-9])(?=[a-zA-Z])([a-zA-Z0-9]+)$/gi);
+  //  console.log("pswd " +pswdVer);
+    console.log("email "+emailVer);
+    if(emailin.length === 0 || pswdin.length === 0){
+        document.getElementById("thisUser").innerHTML = "Fields cannot be empty";
+    }else{
         axios.post(loginsAPI+"login", {
             "email": emailin,
             "pswd": pswdin
@@ -38,9 +45,10 @@ export default function Home(){
                 .then(console.log(data))
             .catch(err => {
                 console.log("Error occured", err);
+                document.getElementById("nameP").innerHTML = "An error occurred. Please try again";
             })
             });
-    
+        }
     }
 
     return(
