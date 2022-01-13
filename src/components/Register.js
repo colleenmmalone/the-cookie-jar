@@ -13,8 +13,27 @@ export default function Register(){
     const [pswd2, setPswd2] = useState('');
 
     function submit(){
+        document.getElementById("infoBar").innerHTML = "";
+        let emailVer = emailin.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,}$/gi);
+        let isValid = true;
 
-        if(pswd1 === pswd2){
+        if(name1.length < 3 || name2.length < 3){ //names must be more than two characters
+            isValid = false;
+            document.getElementById("infoBar").append("Names must be 2 characters or more\n");
+        }
+
+        if(emailVer == null || emailin.length < 9){ //email must match email format and be longer than 8 chars
+            isValid = false;
+            document.getElementById("infoBar").append("Email is not a valid pattern\n");
+        }
+
+        if(pswd1 !== pswd2 || pswd1.length < 6){ //passwords must match and be longer than 5
+            isValid = false;
+            document.getElementById("infoBar").append("Passwords must match and be 6 characters or more\n");
+        }
+
+
+        if(isValid){
             //alert("password matches");
             console.log(name1);
             console.log(name2);
@@ -36,7 +55,7 @@ export default function Register(){
                     });
             
         }else{
-            document.getElementById("infoBar").innerHTML = "passwords do not match";
+           // document.getElementById("infoBar").innerHTML = "Inputs are invalid";
         }
     
     }

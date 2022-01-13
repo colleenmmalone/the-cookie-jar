@@ -12,7 +12,7 @@ export default function Settings(){
                 currentUser(data)})
             .catch(err => {
                 console.log("Error occured", err);
-        
+                document.getElementById("nameP").innerHTML = "An error occurred. Please try again";
             });
     }, []);
 
