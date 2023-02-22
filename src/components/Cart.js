@@ -92,7 +92,7 @@ export default function Cart(props){
                 return val.itemid === itemid ? 
                 {itemid: val.itemid,
                  orderid: val.orderid,
-                 item: val.items,
+                 items: val.items,
                  price: val.price,
                  quantity: newQuantity
                 } : val
